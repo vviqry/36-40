@@ -1,0 +1,1971 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Pastry English Quiz — Book 2 (Ch. 6–10)</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --pastry-cream: #FFFBF5;
+      --pastry-caramel: #B45309;
+      --pastry-amber: #D97706;
+      --pastry-espresso: #451A03;
+      --pastry-success: #15803D;
+      --pastry-error: #B91C1C;
+    }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      -webkit-tap-highlight-color: transparent;
+      background-color: #EFE7DC;
+      color: #451A03;
+    }
+    @keyframes fadeSlideUp {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      20% { transform: translateX(-5px); }
+      40% { transform: translateX(5px); }
+      60% { transform: translateX(-4px); }
+      80% { transform: translateX(4px); }
+    }
+    .animate-fade-up {
+      animation: fadeSlideUp 0.22s ease-out forwards;
+    }
+    .animate-shake {
+      animation: shake 0.34s ease-in-out;
+    }
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+  </style>
+</head>
+<body class="antialiased selection:bg-amber-200 selection:text-[#451A03]">
+
+  <!-- Mobile-First App Shell (360px–480px optimized, max-w-lg centered on desktop) -->
+  <div id="app" class="max-w-lg mx-auto min-h-[100dvh] bg-[#FFFBF5] shadow-2xl flex flex-col relative overflow-x-hidden">
+
+    <!-- ==================== STICKY HEADER ==================== -->
+    <header id="stickyHeader" class="sticky top-0 z-30 bg-[#FFFBF5]/95 backdrop-blur-md border-b border-amber-200/90 shadow-xs">
+      <!-- Top Bar -->
+      <div class="px-3.5 pt-3 pb-2 flex items-center justify-between gap-2">
+        <div class="min-w-0">
+          <div class="flex items-center gap-1.5">
+            <span class="text-base leading-none" aria-hidden="true">🧁</span>
+            <h1 class="text-[15px] font-extrabold text-[#451A03] leading-tight truncate">
+              Book 2 • Ch. 6–10
+            </h1>
+          </div>
+          <div class="flex items-center gap-1.5 mt-1 flex-wrap">
+            <span id="headerScoreBadge" class="text-[11px] font-bold text-[#15803D] bg-emerald-50 border border-emerald-200 px-2 py-0.5 rounded-full">
+              Skor: 0/50
+            </span>
+            <span id="headerCounterText" class="text-[11px] font-semibold text-amber-900/70">
+              Soal 1 / 50
+            </span>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-1.5 shrink-0">
+          <!-- Daftar Soal (1–50) Grid Button -->
+          <button id="openDrawerBtn" type="button" aria-label="Buka Daftar Soal 1 sampai 50" class="min-h-[40px] px-2.5 rounded-xl bg-[#451A03] hover:bg-amber-950 active:scale-95 text-[#FFFBF5] text-xs font-bold flex items-center gap-1.5 transition">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"/></svg>
+            <span class="hidden sm:inline">Daftar Soal</span>
+            <span class="sm:hidden">1–50</span>
+          </button>
+
+          <!-- Hasil Button -->
+          <button id="openEvalBtn" type="button" aria-label="Lihat Hasil dan Evaluasi" class="min-h-[40px] px-2.5 rounded-xl bg-amber-100 hover:bg-amber-200 active:scale-95 text-[#451A03] text-xs font-bold flex items-center gap-1 transition">
+            <span>📊</span>
+            <span>Hasil</span>
+          </button>
+
+          <!-- Reset Button -->
+          <button id="headerResetBtn" type="button" aria-label="Reset Semua Progres" class="min-h-[40px] w-[40px] rounded-xl bg-red-50 hover:bg-red-100 active:scale-95 border border-red-200 text-[#B91C1C] flex items-center justify-center transition">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Thin Global Progress Bar -->
+      <div class="w-full h-1.5 bg-amber-100">
+        <div id="globalProgressBar" class="h-full bg-gradient-to-r from-[#B45309] via-[#D97706] to-[#15803D] transition-all duration-300" style="width: 0%"></div>
+      </div>
+
+      <!-- Horizontal Scrollable Filter Bar (Chips) -->
+      <div class="px-3.5 py-2 bg-amber-50/70 border-t border-amber-100 flex items-center gap-1.5 overflow-x-auto no-scrollbar">
+        <button data-filter="all" class="filter-chip shrink-0 px-3 py-1.5 rounded-full text-xs font-bold bg-[#B45309] text-white transition active:scale-95">Semua (50)</button>
+        <button data-filter="ch6" class="filter-chip shrink-0 px-3 py-1.5 rounded-full text-xs font-bold bg-white border border-amber-200 text-[#451A03]/80 transition active:scale-95">Ch. 6</button>
+        <button data-filter="ch7" class="filter-chip shrink-0 px-3 py-1.5 rounded-full text-xs font-bold bg-white border border-amber-200 text-[#451A03]/80 transition active:scale-95">Ch. 7</button>
+        <button data-filter="ch8" class="filter-chip shrink-0 px-3 py-1.5 rounded-full text-xs font-bold bg-white border border-amber-200 text-[#451A03]/80 transition active:scale-95">Ch. 8</button>
+        <button data-filter="ch9" class="filter-chip shrink-0 px-3 py-1.5 rounded-full text-xs font-bold bg-white border border-amber-200 text-[#451A03]/80 transition active:scale-95">Ch. 9</button>
+        <button data-filter="ch10" class="filter-chip shrink-0 px-3 py-1.5 rounded-full text-xs font-bold bg-white border border-amber-200 text-[#451A03]/80 transition active:scale-95">Ch. 10</button>
+        <button data-filter="pg" class="filter-chip shrink-0 px-3 py-1.5 rounded-full text-xs font-bold bg-white border border-amber-200 text-[#451A03]/80 transition active:scale-95">PG (35)</button>
+        <button data-filter="pgk" class="filter-chip shrink-0 px-3 py-1.5 rounded-full text-xs font-bold bg-white border border-amber-200 text-[#451A03]/80 transition active:scale-95">PGK (15)</button>
+        <button data-filter="unsolved" class="filter-chip shrink-0 px-3 py-1.5 rounded-full text-xs font-bold bg-white border border-amber-200 text-[#451A03]/80 transition active:scale-95">Belum Benar</button>
+      </div>
+
+      <!-- Wrong-Only Practice Banner -->
+      <div id="wrongModeBanner" class="hidden px-3.5 py-1.5 bg-red-50 border-t border-red-200 flex items-center justify-between text-xs">
+        <span class="font-bold text-[#B91C1C]">🔁 Mode Latih Soal yang Masih Salah</span>
+        <button id="exitWrongModeBtn" type="button" class="font-extrabold text-[#B45309] underline">Tampilkan Semua</button>
+      </div>
+    </header>
+
+    <!-- ==================== QUIZ MAIN VIEW ==================== -->
+    <main id="quizView" class="flex-1 overflow-y-auto px-4 pt-4 pb-28">
+      <!-- Empty Filter State -->
+      <div id="emptyFilterCard" class="hidden bg-white rounded-3xl p-6 border border-emerald-200 shadow-sm text-center animate-fade-up">
+        <div class="text-4xl mb-2">🎉</div>
+        <h2 class="text-lg font-extrabold text-[#451A03]">Semua Soal Sudah Benar!</h2>
+        <p class="text-xs text-amber-900/70 mt-1.5 leading-relaxed">
+          Tidak ada soal yang tersisa pada filter ini. Kamu bisa mengecek hasil evaluasi atau kembali melihat semua 50 soal.
+        </p>
+        <div class="mt-4 flex flex-col gap-2">
+          <button id="emptyToEvalBtn" type="button" class="min-h-[48px] w-full rounded-2xl bg-[#15803D] hover:bg-emerald-800 text-white font-bold text-sm transition">
+            📊 Lihat Hasil &amp; Evaluasi
+          </button>
+          <button id="emptyToAllBtn" type="button" class="min-h-[46px] w-full rounded-2xl bg-amber-100 hover:bg-amber-200 text-[#451A03] font-bold text-sm transition">
+            Tampilkan Semua 50 Soal
+          </button>
+        </div>
+      </div>
+
+      <!-- Question Card -->
+      <article id="questionCard" class="bg-white rounded-3xl p-5 border border-amber-200/90 shadow-sm mb-4 animate-fade-up">
+        <!-- Badges Row -->
+        <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+          <div class="flex flex-wrap items-center gap-1.5">
+            <span id="qNumberBadge" class="px-2.5 py-1 rounded-full text-[11px] font-extrabold bg-[#451A03] text-[#FFFBF5]">
+              No. 1
+            </span>
+            <span id="qChapterBadge" class="px-2.5 py-1 rounded-full text-[11px] font-extrabold bg-amber-100 text-[#B45309]">
+              Ch. 6
+            </span>
+            <span id="qTypeBadge" class="px-2.5 py-1 rounded-full text-[11px] font-extrabold bg-stone-100 text-[#451A03]">
+              Pilihan Ganda
+            </span>
+          </div>
+          <span id="qAttemptBadge" class="text-[11px] font-bold text-amber-800/50"></span>
+        </div>
+
+        <!-- Topic Subtitle -->
+        <div id="qTopicLabel" class="text-[11px] font-bold uppercase tracking-wider text-[#B45309]/80 mb-1.5">
+          Dough and Batter Basics
+        </div>
+
+        <!-- Question Text -->
+        <h2 id="questionText" class="text-[16.5px] font-bold text-[#451A03] leading-relaxed whitespace-pre-line">
+          Memuat pertanyaan...
+        </h2>
+
+        <!-- PGK Callout -->
+        <div id="pgkCallout" class="hidden mt-3 px-3.5 py-2.5 rounded-2xl bg-indigo-50 border border-indigo-200 text-xs font-semibold text-indigo-900 flex items-start gap-2">
+          <span class="text-sm leading-none mt-0.5">☑️</span>
+          <span><strong>Pilihan Ganda Kompleks • Pilih semua jawaban yang benar</strong> (bisa lebih dari satu opsi).</span>
+        </div>
+      </article>
+
+      <!-- Options List [A, B, C, D] -->
+      <div id="optionsContainer" class="space-y-2.5 mb-4">
+        <!-- Dynamically rendered -->
+      </div>
+
+      <!-- Smart Auto-Correction / Success Card -->
+      <div id="feedbackCard" class="hidden rounded-3xl p-4 border-2 mb-4 animate-fade-up">
+        <!-- Dynamically rendered -->
+      </div>
+    </main>
+
+    <!-- ==================== EVALUATION / RESULTS VIEW ==================== -->
+    <section id="evalView" class="hidden flex-1 overflow-y-auto px-4 pt-4 pb-10 animate-fade-up">
+      <!-- Score Hero Card -->
+      <div class="bg-gradient-to-br from-[#B45309] via-[#D97706] to-[#451A03] rounded-3xl p-5 text-white text-center shadow-lg shadow-amber-900/15 mb-4">
+        <div id="evalEmoji" class="text-4xl mb-1.5">🧁</div>
+        <h2 class="text-xl font-extrabold">Hasil &amp; Evaluasi</h2>
+        <p id="evalSub" class="text-xs text-amber-100 mt-1">Pastry English Quiz — Book 2 (Ch. 6–10)</p>
+
+        <div class="mt-4 grid grid-cols-2 gap-2.5">
+          <div class="bg-white/15 backdrop-blur-xs rounded-2xl p-3">
+            <div id="evalTotalScore" class="text-2xl font-extrabold">0/50</div>
+            <div class="text-[11px] text-amber-100 font-semibold mt-0.5">Skor Benar</div>
+          </div>
+          <div class="bg-white/15 backdrop-blur-xs rounded-2xl p-3">
+            <div id="evalAccuracyPct" class="text-2xl font-extrabold">0%</div>
+            <div class="text-[11px] text-amber-100 font-semibold mt-0.5">Persentase</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3 Status Counters -->
+      <div class="grid grid-cols-3 gap-2 mb-4 text-center">
+        <div class="bg-white rounded-2xl p-3 border border-emerald-200 shadow-xs">
+          <div id="statCorrect" class="text-xl font-extrabold text-[#15803D]">0</div>
+          <div class="text-[11px] font-semibold text-amber-950/60 mt-0.5">Benar</div>
+        </div>
+        <div class="bg-white rounded-2xl p-3 border border-red-200 shadow-xs">
+          <div id="statWrong" class="text-xl font-extrabold text-[#B91C1C]">0</div>
+          <div class="text-[11px] font-semibold text-amber-950/60 mt-0.5">Masih Salah</div>
+        </div>
+        <div class="bg-white rounded-2xl p-3 border border-amber-200/80 shadow-xs">
+          <div id="statUnanswered" class="text-xl font-extrabold text-stone-500">50</div>
+          <div class="text-[11px] font-semibold text-amber-950/60 mt-0.5">Belum Dijawab</div>
+        </div>
+      </div>
+
+      <!-- Statistik PG vs PGK -->
+      <div class="bg-white rounded-3xl p-4 border border-amber-200/90 shadow-sm mb-4">
+        <div class="flex items-center justify-between mb-3">
+          <h3 class="text-sm font-extrabold text-[#451A03]">Statistik PG vs PGK</h3>
+          <span id="evalFirstTryChip" class="text-[11px] font-bold text-[#15803D] bg-emerald-50 border border-emerald-200 px-2.5 py-0.5 rounded-full">0 benar 1x coba</span>
+        </div>
+        <div class="grid grid-cols-2 gap-2.5">
+          <div class="p-3 rounded-2xl bg-amber-50/80 border border-amber-200/70">
+            <div class="text-[11px] font-bold text-[#B45309]">Pilihan Ganda (PG)</div>
+            <div id="evalPgScore" class="text-lg font-extrabold text-[#451A03] mt-0.5">0 / 35</div>
+            <div id="evalPgPct" class="text-[11px] text-amber-900/60 font-medium">0% benar</div>
+          </div>
+          <div class="p-3 rounded-2xl bg-indigo-50/80 border border-indigo-200/70">
+            <div class="text-[11px] font-bold text-indigo-800">PG Kompleks (PGK)</div>
+            <div id="evalPgkScore" class="text-lg font-extrabold text-[#451A03] mt-0.5">0 / 15</div>
+            <div id="evalPgkPct" class="text-[11px] text-indigo-900/60 font-medium">0% benar</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Rincian Skor per Chapter (Ch. 6–10) -->
+      <div class="bg-white rounded-3xl p-4 border border-amber-200/90 shadow-sm mb-5">
+        <h3 class="text-sm font-extrabold text-[#451A03] mb-3">Rincian Skor per Chapter (Ch. 6–10)</h3>
+        <div id="evalChapterList" class="space-y-3.5">
+          <!-- Dynamically injected -->
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="space-y-2.5">
+        <button id="retryWrongBtn" type="button" class="hidden w-full min-h-[50px] py-3 px-5 rounded-2xl bg-[#B91C1C] hover:bg-red-800 active:scale-[0.99] text-white font-extrabold text-sm shadow-md shadow-red-200 transition">
+          🔁 Latih Soal yang Masih Salah
+        </button>
+        <button id="backToQuizBtn" type="button" class="w-full min-h-[50px] py-3 px-5 rounded-2xl bg-[#B45309] hover:bg-amber-800 active:scale-[0.99] text-white font-bold text-sm shadow-md shadow-amber-200 transition">
+          ← Kembali ke Kuis
+        </button>
+        <button id="evalResetAllBtn" type="button" class="w-full min-h-[48px] py-3 px-5 rounded-2xl bg-white border-2 border-red-200 hover:bg-red-50 active:scale-[0.99] text-[#B91C1C] font-bold text-sm transition">
+          🔄 Reset Semua Progres
+        </button>
+      </div>
+    </section>
+
+    <!-- ==================== STICKY BOTTOM BAR (THUMB ZONE) ==================== -->
+    <footer id="stickyBottomBar" class="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-lg z-30 bg-[#FFFBF5]/95 backdrop-blur-md border-t border-amber-200/90 px-3.5 py-2.5">
+      <div class="flex items-center gap-2">
+        <button id="prevBtn" type="button" class="min-h-[48px] px-3.5 rounded-2xl bg-amber-100/80 hover:bg-amber-200/80 active:scale-95 disabled:opacity-40 text-[#451A03] font-bold text-xs flex items-center justify-center gap-1 shrink-0 transition">
+          <span>←</span>
+          <span>Prev</span>
+        </button>
+
+        <button id="checkBtn" type="button" class="flex-1 min-h-[48px] px-4 rounded-2xl bg-[#B45309] hover:bg-amber-800 active:scale-[0.98] disabled:bg-stone-300 disabled:text-stone-500 text-white font-extrabold text-sm shadow-md shadow-amber-900/15 transition flex items-center justify-center gap-1.5">
+          Periksa Jawaban
+        </button>
+
+        <button id="nextBtn" type="button" class="min-h-[48px] px-3.5 rounded-2xl bg-amber-100/80 hover:bg-amber-200/80 active:scale-95 text-[#451A03] font-bold text-xs flex items-center justify-center gap-1 shrink-0 transition">
+          <span id="nextBtnLabel">Next</span>
+          <span>→</span>
+        </button>
+      </div>
+    </footer>
+
+    <!-- ==================== BOTTOM SHEET: DAFTAR SOAL (1–50) ==================== -->
+    <div id="drawerModal" class="hidden fixed inset-0 z-50 flex items-end justify-center bg-[#451A03]/50 backdrop-blur-xs">
+      <div class="w-full max-w-lg max-h-[84dvh] bg-[#FFFBF5] rounded-t-3xl flex flex-col shadow-2xl animate-fade-up">
+        <div class="w-10 h-1 bg-amber-300 rounded-full mx-auto mt-2.5"></div>
+
+        <div class="px-5 py-3.5 border-b border-amber-200/80 flex items-center justify-between">
+          <div>
+            <h3 class="font-extrabold text-base text-[#451A03]">Daftar Soal (1–50)</h3>
+            <p id="drawerSummaryText" class="text-xs font-semibold text-amber-900/70 mt-0.5">
+              Benar: 0 • Salah: 0 • Belum: 50
+            </p>
+          </div>
+          <button id="closeDrawerBtn" type="button" class="w-10 h-10 rounded-full bg-amber-100 hover:bg-amber-200 text-[#451A03] font-bold flex items-center justify-center">
+            ✕
+          </button>
+        </div>
+
+        <!-- Legend -->
+        <div class="px-5 py-2.5 bg-amber-50/70 border-b border-amber-100 flex flex-wrap gap-x-3.5 gap-y-1.5 text-[11px] font-bold text-[#451A03]/80">
+          <span class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-full bg-stone-200 inline-block"></span>Belum</span>
+          <span class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-full bg-[#15803D] inline-block"></span>Benar</span>
+          <span class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-full bg-[#B91C1C] inline-block"></span>Salah/Revisi</span>
+          <span class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-full border-2 border-[#D97706] bg-white inline-block"></span>Aktif</span>
+        </div>
+
+        <!-- 5-Column Grid -->
+        <div id="drawerGrid" class="p-4 overflow-y-auto grid grid-cols-5 gap-2">
+          <!-- Dynamically injected -->
+        </div>
+
+        <div class="p-4 border-t border-amber-200/80">
+          <button id="drawerEvalBtn" type="button" class="w-full min-h-[48px] rounded-2xl bg-[#B45309] hover:bg-amber-800 text-white font-extrabold text-sm transition">
+            📊 Lihat Hasil &amp; Evaluasi
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== CUSTOM RESET CONFIRMATION MODAL (No window.confirm) ==================== -->
+    <div id="resetModal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-5 bg-[#451A03]/55 backdrop-blur-xs">
+      <div class="w-full max-w-[350px] bg-[#FFFBF5] rounded-3xl p-6 shadow-2xl border border-amber-200 animate-fade-up">
+        <div class="w-12 h-12 rounded-2xl bg-red-100 text-[#B91C1C] flex items-center justify-center text-2xl mx-auto mb-3">
+          🔄
+        </div>
+        <h3 class="text-lg font-extrabold text-[#451A03] text-center">Reset Semua Progres?</h3>
+        <p class="text-xs text-amber-950/70 text-center mt-1.5 leading-relaxed">
+          Semua jawaban tersimpan, skor, dan status benar/salah pada 50 soal akan dihapus agar kamu bisa mulai latihan dari awal.
+        </p>
+        <div class="grid grid-cols-2 gap-2.5 mt-5">
+          <button id="cancelResetBtn" type="button" class="min-h-[48px] rounded-2xl bg-amber-100 hover:bg-amber-200 text-[#451A03] font-bold text-sm transition">
+            Batal
+          </button>
+          <button id="confirmResetBtn" type="button" class="min-h-[48px] rounded-2xl bg-[#B91C1C] hover:bg-red-800 text-white font-bold text-sm transition">
+            Ya, Reset
+          </button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ==================== VANILLA JS: 50 COMPLETE PASTRY QUESTIONS & ENGINE ==================== -->
+  <script>
+    /**
+     * CHAPTER METADATA — Book 2: English for Pastry Cook (Chapters 6–10)
+     */
+    const CHAPTER_META = {
+      6: { short: "Ch. 6", title: "Dough and Batter Basics" },
+      7: { short: "Ch. 7", title: "Baking Techniques" },
+      8: { short: "Ch. 8", title: "Types of Pastries and Desserts" },
+      9: { short: "Ch. 9", title: "Fillings, Creams, and Sauces" },
+      10: { short: "Ch. 10", title: "Decorating and Finishing" }
+    };
+
+    /**
+     * ALL 50 COMPLETE QUESTIONS (35 PG + 15 PGK)
+     * Properties: id, chapter, chapterTitle, type, question, options, correct, wrongReasons, ruleHint, successNote
+     * ZERO-SPOILER RULE: wrongReasons & ruleHint NEVER mention the correct option letter or text.
+     */
+    const QUESTIONS = [
+      // ==================== CHAPTER 6: DOUGH AND BATTER BASICS (No. 1–10) ====================
+      {
+        id: 1, chapter: 6, chapterTitle: "Dough and Batter Basics", type: "pg",
+        question: "Which type of mixture is made from flour, yeast, water, salt, and sugar, and has an elastic and firm texture?",
+        options: {
+          A: "Cake batter",
+          B: "Bread dough",
+          C: "Cookie dough",
+          D: "Pastry dough"
+        },
+        correct: ["B"],
+        wrongReasons: {
+          A: "'Cake batter' dibuat dari tepung, gula, telur, mentega, dan susu (tanpa ragi), serta bertekstur lembut dan kental/cair (soft and thick).",
+          C: "'Cookie dough' umumnya memakai tepung, mentega, gula, dan telur (tanpa ragi), bukan adonan elastis beragi.",
+          D: "'Pastry dough' hanya berbahan utama tepung, mentega dingin, dan air (tanpa ragi), bertekstur padat dan dingin untuk pie/tart."
+        },
+        ruleHint: "Perhatikan bahan kuncinya: ada 'yeast' (ragi) dan teksturnya 'elastic and firm' karena diuleni (kneaded). Cek tabel 4 jenis adonan di Chapter 6.",
+        successNote: "Benar! Bread dough memakai tepung, ragi, air, garam, dan gula sehingga menghasilkan tekstur elastis dan padat."
+      },
+      {
+        id: 2, chapter: 6, chapterTitle: "Dough and Batter Basics", type: "pg",
+        question: "According to Chapter 6, how is PASTRY DOUGH (for pies and tarts) usually prepared before rolling?",
+        options: {
+          A: "It is kneaded hard and left to rise for one hour.",
+          B: "It is beaten with milk until thin and runny.",
+          C: "It is mixed gently with cold butter and chilled before rolling.",
+          D: "It is baked first before adding cold water."
+        },
+        correct: ["C"],
+        wrongReasons: {
+          A: "Menguleni kuat dan membiarkan mengembang (rise) adalah proses untuk bread dough beragi, bukan pastry dough.",
+          B: "Mengocok dengan susu hingga encer/lembut adalah cara menyiapkan batter, bukan adonan pie/tart.",
+          D: "Adonan tidak pernah dipanggang sebelum dicampur dengan air dingin."
+        },
+        ruleHint: "Ingat catatan 'Remember!' di Chapter 6: pastry dough berbahan tepung, mentega dingin, dan air dingin. Bagaimana cara mencampur dan suhu penyimpanannya sebelum digilas (rolling)?",
+        successNote: "Tepat! Pastry dough dicampur perlahan (mixed gently) dengan mentega dingin lalu didinginkan (chilled) sebelum digilas."
+      },
+      {
+        id: 3, chapter: 6, chapterTitle: "Dough and Batter Basics", type: "pg",
+        question: "In bread-making, why is the dough KNEADED by hand or mixer?",
+        options: {
+          A: "To make the dough cold and frozen.",
+          B: "To make the dough smooth and elastic.",
+          C: "To melt the chocolate chips inside.",
+          D: "To make the batter thin and watery."
+        },
+        correct: ["B"],
+        wrongReasons: {
+          A: "Mendinginkan adonan di kulkas disebut 'chilling', bukan 'kneading'.",
+          C: "Chocolate chips umumnya ditambahkan pada cookie dough di tahap akhir, bukan tujuan menguleni adonan roti.",
+          D: "Menguleni adonan roti tidak bertujuan membuatnya encer seperti air."
+        },
+        ruleHint: "Ingat bacaan 'How to Prepare Simple Bread Dough' di Chapter 6: 'the dough is kneaded until it becomes...' (cari dua kata sifat tekstur roti yang tepat).",
+        successNote: "Benar! Adonan roti diuleni (kneaded) agar teksturnya menjadi halus (smooth) dan elastis (elastic)."
+      },
+      {
+        id: 4, chapter: 6, chapterTitle: "Dough and Batter Basics", type: "pg",
+        question: "Complete the process description using the correct passive pattern from Chapter 6:\n'First, the ingredients ______ measured. Next, the dough ______ kneaded until elastic.'",
+        options: {
+          A: "is / are",
+          B: "are / is",
+          C: "are / are",
+          D: "is / is"
+        },
+        correct: ["B"],
+        wrongReasons: {
+          A: "Terbalik! 'the ingredients' adalah subjek jamak (ada -s), sedangkan 'the dough' adalah benda tak terhitung/tunggal.",
+          C: "'the dough' adalah subjek tunggal/uncountable, sehingga tidak boleh memakai 'are'.",
+          D: "'the ingredients' adalah subjek jamak, sehingga tidak boleh memakai 'is'."
+        },
+        ruleHint: "Cek pola Speaking Pattern Chapter 6: 'First, ... is/are + V3'. Sesuaikan 'is' untuk subjek tunggal/uncountable ('the dough') dan 'are' untuk subjek jamak ('the ingredients').",
+        successNote: "Tepat! 'the ingredients' (jamak) memakai 'are measured', sedangkan 'the dough' (tunggal) memakai 'is kneaded'."
+      },
+      {
+        id: 5, chapter: 6, chapterTitle: "Dough and Batter Basics", type: "pg",
+        question: "Which sequence shows the CORRECT order for preparing simple BREAD DOUGH?",
+        options: {
+          A: "First, the bread is baked. Next, the dough is kneaded. Finally, the ingredients are measured.",
+          B: "First, the ingredients are measured. Next, they are mixed. Then, the dough is kneaded. After that, it is left to rise. Finally, it is baked.",
+          C: "First, the dough is left to rise. Next, the ingredients are measured. Then, they are mixed. Finally, it is kneaded.",
+          D: "First, the ingredients are mixed. Next, the bread is baked. Finally, the dough is left to rise."
+        },
+        correct: ["B"],
+        wrongReasons: {
+          A: "Roti tidak mungkin dipanggang sebelum bahan ditimbang dan adonan diuleni.",
+          C: "Adonan belum bisa mengembang (rise) sebelum bahan ditimbang dan dicampur.",
+          D: "Proses pengembangan (rise) terjadi SEBELUM dipanggang, bukan sesudahnya."
+        },
+        ruleHint: "Ikuti alur logis pembuatan roti di Chapter 6: timbang bahan → campur → uleni → diamkan mengembang → panggang di oven.",
+        successNote: "Benar! Urutan measure → mix → knead → rise → bake adalah langkah standar membuat adonan roti."
+      },
+      {
+        id: 6, chapter: 6, chapterTitle: "Dough and Batter Basics", type: "pg",
+        question: "In Chef Anna's explanation of CAKE BATTER, what is done FIRST before adding eggs, flour, and milk?",
+        options: {
+          A: "Yeast and salt are kneaded by hand.",
+          B: "Butter and sugar are beaten first.",
+          C: "The cake pan is chilled in the freezer.",
+          D: "Chocolate chips are added at the very beginning."
+        },
+        correct: ["B"],
+        wrongReasons: {
+          A: "Ragi dan pengulenan adalah langkah untuk bread dough, bukan cake batter.",
+          C: "Mendinginkan loyang di freezer bukan langkah awal membuat adonan cake batter.",
+          D: "Chocolate chips biasanya ditambahkan di akhir saat membuat cookie dough, bukan langkah pertama cake batter."
+        },
+        ruleHint: "Ingat Model Conversation Chapter 6: untuk cake batter, dua bahan utama (lemak dan pemanis) dikocok (beaten) terlebih dahulu sebelum telur, tepung, dan susu masuk.",
+        successNote: "Tepat! Pada pembuatan cake batter, mentega dan gula dikocok terlebih dahulu ('butter and sugar are beaten first')."
+      },
+      {
+        id: 7, chapter: 6, chapterTitle: "Dough and Batter Basics", type: "pg",
+        question: "What does the pastry preparation verb 'CHILL' mean in Bahasa Indonesia?",
+        options: {
+          A: "Menguleni adonan",
+          B: "Mendinginkan dalam lemari pendingin",
+          C: "Mengaduk balik adonan",
+          D: "Menggilas adonan"
+        },
+        correct: ["B"],
+        wrongReasons: {
+          A: "Menguleni adonan dalam bahasa Inggris disebut 'knead', bukan 'chill'.",
+          C: "Mengaduk balik adonan disebut 'fold', bukan 'chill'.",
+          D: "Menggilas adonan disebut 'roll', bukan 'chill'."
+        },
+        ruleHint: "Ingat Word Bank Chapter 6: kata 'chill' berkaitan dengan suhu dingin (chiller/refrigerator) sebelum adonan kukis atau pastry digilas/dipanggang.",
+        successNote: "Benar! 'Chill' berarti mendinginkan adonan di dalam lemari pendingin (kulkas/chiller)."
+      },
+      {
+        id: 8, chapter: 6, chapterTitle: "Dough and Batter Basics", type: "pgk",
+        question: "Select ALL statements that are TRUE about the four types of dough and batter in Chapter 6.",
+        options: {
+          A: "Bread dough is usually kneaded and left to rise.",
+          B: "Cake batter is soft and thick before baking.",
+          C: "Pastry dough is made with yeast so it becomes fluffy like bread.",
+          D: "Cookie dough is usually mixed and sometimes chilled before baking."
+        },
+        correct: ["A", "B", "D"],
+        wrongReasons: {
+          C: "Pastry dough (untuk pie/tart) terbuat dari tepung, mentega dingin, dan air—TIDAK menggunakan ragi dan tidak dibuat mengembang seperti roti."
+        },
+        ruleHint: "Bandingkan karakteristik 4 jenis adonan di tabel Chapter 6: mana yang beragi (bread), mana yang soft & thick (cake), mana yang kadang didinginkan (cookie), dan mana yang tidak beragi (pastry).",
+        successNote: "Mantap! A, B, dan D sesuai dengan karakteristik masing-masing adonan di Chapter 6."
+      },
+      {
+        id: 9, chapter: 6, chapterTitle: "Dough and Batter Basics", type: "pgk",
+        question: "Select ALL preparation verbs that are correctly matched with their Indonesian meaning.",
+        options: {
+          A: "Knead → Menguleni",
+          B: "Fold → Mengaduk balik",
+          C: "Rise → Menggilas",
+          D: "Rest → Mengistirahatkan adonan"
+        },
+        correct: ["A", "B", "D"],
+        wrongReasons: {
+          C: "'Rise' berarti MENGEMBANG (untuk adonan roti), sedangkan menggilas adonan adalah 'roll'."
+        },
+        ruleHint: "Cek kembali arti kosakata Preparation Verbs di Word Bank Chapter 6 (knead, fold, roll, rise, rest).",
+        successNote: "Benar! Knead (menguleni), Fold (mengaduk balik), dan Rest (mengistirahatkan adonan) semuanya tepat."
+      },
+      {
+        id: 10, chapter: 6, chapterTitle: "Dough and Batter Basics", type: "pgk",
+        question: "Select ALL grammatically CORRECT sentences describing dough or batter preparation.",
+        options: {
+          A: "First, the flour and yeast are mixed together.",
+          B: "Then, the batter is beaten until smooth.",
+          C: "After that, the dough are left to rest.",
+          D: "Finally, the cookies are baked in the oven."
+        },
+        correct: ["A", "B", "D"],
+        wrongReasons: {
+          C: "'the dough' adalah kata benda uncountable/tunggal, sehingga tidak boleh memakai 'are' ('the dough are left')."
+        },
+        ruleHint: "Periksa kesesuaian subjek tunggal vs jamak dengan 'is/are + V3' pada kalimat proses dengan sequencing expressions.",
+        successNote: "Tepat! A, B, dan D menggunakan subjek + is/are + V3 dengan benar."
+      },
+
+      // ==================== CHAPTER 7: BAKING TECHNIQUES (No. 11–20) ====================
+      {
+        id: 11, chapter: 7, chapterTitle: "Baking Techniques", type: "pg",
+        question: "Which baking technique means 'gently combining ingredients using a spatula to help keep air in the batter'?",
+        options: {
+          A: "Kneading",
+          B: "Folding",
+          C: "Proofing",
+          D: "Cooling"
+        },
+        correct: ["B"],
+        wrongReasons: {
+          A: "'Kneading' (menguleni) adalah menekan dan menarik adonan roti untuk membentuk struktur gluten, bukan mengaduk lembut dengan spatula.",
+          C: "'Proofing' adalah membiarkan adonan beragi mengembang di tempat hangat.",
+          D: "'Cooling' adalah mendinginkan produk yang sudah matang di atas rak pendingin."
+        },
+        ruleHint: "Cari teknik yang bersifat lembut ('gentle'), memakai spatula, dan menjaga udara (air) tetap terperangkap di dalam adonan kue.",
+        successNote: "Benar! 'Folding' (mengaduk balik) dilakukan perlahan dengan spatula agar udara di dalam batter tetap terjaga."
+      },
+      {
+        id: 12, chapter: 7, chapterTitle: "Baking Techniques", type: "pg",
+        question: "In a bakery, what happens during the PROOFING stage?",
+        options: {
+          A: "Baked cookies become cool on a wire rack.",
+          B: "Yeast dough is allowed to rise before baking.",
+          C: "Butter and sugar are mixed with a whisk.",
+          D: "The finished cake is decorated with a piping bag."
+        },
+        correct: ["B"],
+        wrongReasons: {
+          A: "Mendinginkan kukis di atas rak adalah proses 'cooling', bukan 'proofing'.",
+          C: "Mengocok mentega dan gula adalah 'beating/whisking/creaming', bukan 'proofing'.",
+          D: "Menghias kue dengan piping bag adalah 'decorating/piping', bukan 'proofing'."
+        },
+        ruleHint: "Ingat tabel 6 Baking Techniques di Chapter 7: 'proofing' adalah proses khusus untuk adonan beragi (yeast dough) agar volumenya naik.",
+        successNote: "Tepat! Proofing adalah proses membiarkan adonan beragi mengembang sebelum dipanggang."
+      },
+      {
+        id: 13, chapter: 7, chapterTitle: "Baking Techniques", type: "pg",
+        question: "Right now in the pastry kitchen, Dimas ______ the bread dough, and the cookies ______ on the rack.",
+        options: {
+          A: "kneads / cooling",
+          B: "is kneading / are cooling",
+          C: "are kneading / is cooling",
+          D: "is knead / are cool"
+        },
+        correct: ["B"],
+        wrongReasons: {
+          A: "'kneads' adalah Simple Present (bukan sedang terjadi 'Right now'), dan 'cooling' kehilangan kata bantu 'are'.",
+          C: "Terbalik! 'Dimas' adalah 1 orang (tunggal), sedangkan 'the cookies' berbentuk jamak (ada -s).",
+          D: "Setelah 'is/are' pada Present Continuous aktif, kata kerja harus berbentuk '-ing', bukan V1."
+        },
+        ruleHint: "Gunakan pola Present Continuous ('Right now'): Subject + am/is/are + verb-ing. Cocokkan 'is' untuk subjek tunggal ('Dimas') dan 'are' untuk subjek jamak ('the cookies').",
+        successNote: "Benar! 'Dimas is kneading...' (tunggal) dan 'the cookies are cooling...' (jamak)."
+      },
+      {
+        id: 14, chapter: 7, chapterTitle: "Baking Techniques", type: "pg",
+        question: "Chef Anna: '______ the cookies cooling on the rack?' Assistant: 'Yes, they ______.'",
+        options: {
+          A: "Is / is",
+          B: "Do / do",
+          C: "Are / are",
+          D: "Am / are"
+        },
+        correct: ["C"],
+        wrongReasons: {
+          A: "'the cookies' adalah subjek jamak (lebih dari satu), sehingga tidak boleh memakai 'Is'.",
+          B: "'Do' digunakan untuk Simple Present (V1), bukan untuk kalimat Present Continuous yang memakai verb-ing ('cooling').",
+          D: "'Am' hanya dipakai untuk subjek 'I', tidak cocok dengan 'the cookies'."
+        },
+        ruleHint: "Pola pertanyaan Yes/No Present Continuous: 'Am / Is / Are + subject + verb-ing?'. Karena subjeknya jamak ('the cookies'), gunakan kata bantu jamak.",
+        successNote: "Tepat! 'Are the cookies cooling on the rack?' dijawab 'Yes, they are.'"
+      },
+      {
+        id: 15, chapter: 7, chapterTitle: "Baking Techniques", type: "pg",
+        question: "Choose the grammatically CORRECT negative sentence in Present Continuous.",
+        options: {
+          A: "She is not check the oven now.",
+          B: "They not decorating the cupcakes.",
+          C: "The oven is not working right now.",
+          D: "I am not bake the cake now."
+        },
+        correct: ["C"],
+        wrongReasons: {
+          A: "Setelah 'is not' pada Present Continuous, kata kerjanya harus berbentuk '-ing', bukan V1 ('check').",
+          B: "Kalimat ini kehilangan kata bantu 'be' ('are') sebelum 'not decorating'.",
+          D: "Setelah 'am not', kata kerja 'bake' lupa diubah menjadi bentuk '-ing'."
+        },
+        ruleHint: "Pola kalimat negatif Present Continuous di Chapter 7: Subject + am/is/are + not + VERB-ING.",
+        successNote: "Benar! 'The oven is not working right now.' memenuhi rumus Subject + is + not + verb-ing."
+      },
+      {
+        id: 16, chapter: 7, chapterTitle: "Baking Techniques", type: "pg",
+        question: "Chef Anna notices Rina mixing the cake batter too long. What negative imperative should Chef Anna say?",
+        options: {
+          A: "Don't overmixing the batter.",
+          B: "Don't overmix the batter.",
+          C: "No overmix the batter.",
+          D: "Don't to overmix the batter."
+        },
+        correct: ["B"],
+        wrongReasons: {
+          A: "Setelah 'Don't', kata kerja tidak boleh berbentuk '-ing' ('overmixing').",
+          C: "Negative imperative dalam bahasa Inggris memakai 'Don't + base verb', bukan 'No + verb'.",
+          D: "Jangan menambahkan kata 'to' di antara 'Don't' dan kata kerja dasarnya."
+        },
+        ruleHint: "Ingat rumus Negative Imperative Chapter 7: 'Don't + BASE VERB' (kata kerja dasar murni, tanpa -ing dan tanpa to).",
+        successNote: "Tepat! 'Don't overmix the batter.' adalah larangan langsung yang benar secara grammar."
+      },
+      {
+        id: 17, chapter: 7, chapterTitle: "Baking Techniques", type: "pg",
+        question: "Which sentence is a POLITE imperative instruction for cooling baked products?",
+        options: {
+          A: "Please putting the cakes on the cooling rack.",
+          B: "Please put the cakes on the cooling rack.",
+          C: "You puts the cakes on the cooling rack.",
+          D: "Please to put the cakes on the cooling rack."
+        },
+        correct: ["B"],
+        wrongReasons: {
+          A: "Setelah 'Please' dalam kalimat instruksi, gunakan kata kerja dasar (V1), bukan verb-ing ('putting').",
+          C: "Subjek 'You' tidak cocok dengan akhiran '-s' ('puts'), dan kalimat ini bukan pola polite imperative.",
+          D: "Jangan menambahkan kata 'to' setelah 'Please' pada kalimat instruksi."
+        },
+        ruleHint: "Pola Polite Imperative di Chapter 7: 'Please + BASE VERB + object'.",
+        successNote: "Benar! 'Please put the cakes on the cooling rack.' sopan dan tepat secara grammar."
+      },
+      {
+        id: 18, chapter: 7, chapterTitle: "Baking Techniques", type: "pgk",
+        question: "Select ALL grammatically CORRECT Present Continuous sentences describing ongoing kitchen activities.",
+        options: {
+          A: "The bread dough is rising in a warm place.",
+          B: "Two assistants are preparing the baking trays.",
+          C: "The chef checking the oven temperature now.",
+          D: "I am folding the flour into the cake batter."
+        },
+        correct: ["A", "B", "D"],
+        wrongReasons: {
+          C: "Kalimat ini kehilangan kata bantu 'be' ('is') di antara subjek 'The chef' dan 'checking'."
+        },
+        ruleHint: "Pastikan setiap kalimat Present Continuous lengkap memiliki: Subject + am/is/are + verb-ing.",
+        successNote: "Mantap! A, B, dan D semuanya menggunakan Present Continuous dengan tepat."
+      },
+      {
+        id: 19, chapter: 7, chapterTitle: "Baking Techniques", type: "pgk",
+        question: "Select ALL baking techniques that are CORRECTLY matched with their explanation.",
+        options: {
+          A: "Mixing → Combining ingredients together",
+          B: "Kneading → Working dough by pressing and stretching it",
+          C: "Baking → Allowing baked products to become cool",
+          D: "Cooling → Allowing baked products to cool on a rack before decorating"
+        },
+        correct: ["A", "B", "D"],
+        wrongReasons: {
+          C: "'Baking' adalah memanggang adonan di dalam oven (cooking food in an oven), bukan mendinginkan produk."
+        },
+        ruleHint: "Cocokkan masing-masing dari 6 teknik utama Chapter 7 (mixing, folding, kneading, proofing, baking, cooling) dengan definisinya.",
+        successNote: "Benar! Mixing, Kneading, dan Cooling semuanya cocok dengan penjelasannya."
+      },
+      {
+        id: 20, chapter: 7, chapterTitle: "Baking Techniques", type: "pgk",
+        question: "Select ALL grammatically CORRECT imperatives (positive, negative, or polite) for the baking area.",
+        options: {
+          A: "Don't open the oven too often.",
+          B: "Please check the oven temperature.",
+          C: "Don't touches the hot baking tray.",
+          D: "Knead the dough until it becomes smooth and elastic."
+        },
+        correct: ["A", "B", "D"],
+        wrongReasons: {
+          C: "Setelah 'Don't', kata kerja tidak boleh ditambah akhiran '-es' ('touches'), harus bentuk dasar (V1)."
+        },
+        ruleHint: "Ingat: baik positif, negatif ('Don't'), maupun sopan ('Please'), kalimat imperative selalu memakai BASE VERB (V1 murni).",
+        successNote: "Tepat! A, B, dan D semuanya merupakan kalimat instruksi yang akurat."
+      },
+
+      // ==================== CHAPTER 8: TYPES OF PASTRIES AND DESSERTS (No. 21–30) ====================
+      {
+        id: 21, chapter: 8, chapterTitle: "Types of Pastries and Desserts", type: "pg",
+        question: "Customer: 'Can you describe your croissants?' Pastry Cook: 'Certainly! A croissant is a French pastry that is buttery, ______, and golden brown.'",
+        options: {
+          A: "salty",
+          B: "flaky",
+          C: "watery",
+          D: "bitter"
+        },
+        correct: ["B"],
+        wrongReasons: {
+          A: "'salty' (asin) bukan ciri tekstur lapisan khas croissant di Chapter 8.",
+          C: "'watery' (berair) bukan tekstur yang tepat untuk pastry panggang berlapis.",
+          D: "'bitter' (pahit) biasanya dipakai untuk dark chocolate, bukan croissant mentega."
+        },
+        ruleHint: "Ingat Word Bank Texture di Chapter 8: croissant memiliki banyak lapisan tipis yang mudah terkelupas saat digigit. Apa kata sifat bahasa Inggrisnya?",
+        successNote: "Benar! 'Flaky' berarti berlapis dan mudah terkelupas—tekstur khas croissant."
+      },
+      {
+        id: 22, chapter: 8, chapterTitle: "Types of Pastries and Desserts", type: "pg",
+        question: "Choose the sentence that uses the CORRECT English word order for 'Adjective + Noun'.",
+        options: {
+          A: "We serve a cake chocolate delicious.",
+          B: "We serve a delicious chocolate cake.",
+          C: "We serve a fruit tart fresh and colorful.",
+          D: "We serve a bread roll soft."
+        },
+        correct: ["B"],
+        wrongReasons: {
+          A: "Urutan bahasa Indonesia terbalik! Dalam bahasa Inggris, kata sifat ('delicious') harus diletakkan SEBELUM kata benda ('chocolate cake').",
+          C: "Kata sifat ('fresh and colorful') diletakkan di belakang kata benda tanpa 'which is/that is'; seharusnya di depan kata benda.",
+          D: "Kata sifat ('soft') tidak boleh diletakkan setelah kata benda ('bread roll')."
+        },
+        ruleHint: "Ingat Pattern 2 di Chapter 8: dalam bahasa Inggris, ADJECTIVE selalu diletakkan SEBELUM NOUN (Adjective + Noun).",
+        successNote: "Tepat! 'a delicious chocolate cake' menempatkan kata sifat sebelum kata benda dengan benar."
+      },
+      {
+        id: 23, chapter: 8, chapterTitle: "Types of Pastries and Desserts", type: "pg",
+        question: "Which bakery product is described as 'a long French bread that has a crispy crust and a soft inside'?",
+        options: {
+          A: "Brioche",
+          B: "Baguette",
+          C: "Éclair",
+          D: "Brownies"
+        },
+        correct: ["B"],
+        wrongReasons: {
+          A: "'Brioche' adalah roti lembut kaya mentega dan telur, bukan roti panjang berkulit renyah.",
+          C: "'Éclair' adalah pastry panjang berisi krim (masuk kategori tarts & pastries), bukan roti (bread).",
+          D: "'Brownies' adalah dessert cokelat persegi yang lembut/moist, bukan roti Prancis."
+        },
+        ruleHint: "Cek bacaan 'Bakery Products at the Hotel Café' di Chapter 8: roti panjang khas Prancis yang populer untuk sandwich.",
+        successNote: "Benar! Baguette adalah roti panjang khas Prancis dengan kulit luar renyah dan bagian dalam lembut."
+      },
+      {
+        id: 24, chapter: 8, chapterTitle: "Types of Pastries and Desserts", type: "pg",
+        question: "Which pair of adjectives best describes the taste and texture of CHEESECAKE according to Chapter 8?",
+        options: {
+          A: "creamy and rich",
+          B: "crunchy and dry",
+          C: "sour and flaky",
+          D: "salty and hard"
+        },
+        correct: ["A"],
+        wrongReasons: {
+          B: "'crunchy and dry' adalah ciri kukis atau roti kering, bukan cheesecake.",
+          C: "'flaky' adalah tekstur croissant/puff pastry berlapis, bukan cheesecake.",
+          D: "'hard' (keras) bukan tekstur yang baik untuk cheesecake."
+        },
+        ruleHint: "Ingat tabel Description di Chapter 8: cheesecake terbuat dari cream cheese sehingga teksturnya lembut seperti krim dan kaya rasa.",
+        successNote: "Tepat! Cheesecake dikenal memiliki tekstur 'creamy' dan rasa yang 'rich'."
+      },
+      {
+        id: 25, chapter: 8, chapterTitle: "Types of Pastries and Desserts", type: "pg",
+        question: "Comparing Bakery Products: A cheesecake is ______ than a sponge cake, and a baguette is ______ than a bread roll.",
+        options: {
+          A: "more creamy / more long",
+          B: "creamier / longer",
+          C: "creamiest / longest",
+          D: "creamy / long"
+        },
+        correct: ["B"],
+        wrongReasons: {
+          A: "Kata sifat pendek 1 suku kata ('long') memakai akhiran '-er' (bukan 'more'), dan kata berakhiran '-y' ('creamy') berubah menjadi '-ier'.",
+          C: "Akhiran '-est' adalah Superlative (paling), tidak boleh dipasangkan dengan kata 'than' untuk membandingkan 2 produk.",
+          D: "Bentuk dasar kata sifat ('creamy / long') belum diubah ke bentuk Comparative sebelum 'than'."
+        },
+        ruleHint: "Perhatikan kata 'than' (membandingkan 2 produk). Untuk akhiran '-y', ubah y → i + er; untuk kata sifat pendek 1 suku kata, tambahkan '-er'.",
+        successNote: "Benar! 'creamier than' dan 'longer than' adalah bentuk komparatif yang tepat."
+      },
+      {
+        id: 26, chapter: 8, chapterTitle: "Types of Pastries and Desserts", type: "pg",
+        question: "Complete the sentence using the correct relative pronouns from Chapter 8:\n'The pastry chef ______ prepares our fruit tarts makes pastries ______ look colorful and attractive.'",
+        options: {
+          A: "which / who",
+          B: "who / that",
+          C: "what / who",
+          D: "who / what"
+        },
+        correct: ["B"],
+        wrongReasons: {
+          A: "Terbalik! 'which' tidak dipakai untuk manusia ('the pastry chef'), dan 'who' tidak dipakai untuk benda/makanan ('pastries').",
+          C: "'what' bukan relative pronoun penghubung untuk orang, dan 'who' tidak boleh untuk makanan ('pastries').",
+          D: "'what' tidak digunakan sebagai relative pronoun setelah kata benda 'pastries'."
+        },
+        ruleHint: "Ingat aturan relative pronouns di Chapter 8: gunakan satu kata khusus untuk ORANG (the pastry chef), dan 'which' atau 'that' untuk BENDA/PRODUK (pastries).",
+        successNote: "Tepat! 'who' merujuk pada orang (the pastry chef), sedangkan 'that' (atau 'which') merujuk pada produk (pastries)."
+      },
+      {
+        id: 27, chapter: 8, chapterTitle: "Types of Pastries and Desserts", type: "pg",
+        question: "A fruit tart looks ______ than a plain bread roll because it has fresh, colorful fruit on top.",
+        options: {
+          A: "attractiver",
+          B: "more attractive",
+          C: "most attractive",
+          D: "more attractiver"
+        },
+        correct: ["B"],
+        wrongReasons: {
+          A: "'attractive' adalah kata sifat panjang (3 suku kata), sehingga tidak boleh ditambah akhiran '-er'.",
+          C: "'most attractive' adalah bentuk Superlative (paling menarik), tidak cocok dengan kata 'than' yang membandingkan 2 produk.",
+          D: "Jangan menggabungkan 'more' sekaligus akhiran '-er' (double comparative)."
+        },
+        ruleHint: "Untuk membandingkan DUA produk (ada kata 'than') dengan kata sifat panjang ('attractive'), gunakan pola: 'more + adjective + than'.",
+        successNote: "Benar! 'more attractive than' adalah bentuk komparatif yang tepat untuk kata sifat panjang."
+      },
+      {
+        id: 28, chapter: 8, chapterTitle: "Types of Pastries and Desserts", type: "pgk",
+        question: "Select ALL products that belong to the TARTS AND PASTRIES category in Chapter 8.",
+        options: {
+          A: "Croissant",
+          B: "Fruit tart",
+          C: "Éclair",
+          D: "Whole wheat bread"
+        },
+        correct: ["A", "B", "C"],
+        wrongReasons: {
+          D: "'Whole wheat bread' (roti gandum utuh) masuk kategori TYPES OF BREAD, bukan Tarts and Pastries."
+        },
+        ruleHint: "Bedakan kategori Types of Bread (roti tawar/roti gandum/baguette) dari kategori Types of Tarts and Pastries di Word Bank Chapter 8.",
+        successNote: "Benar! Croissant, Fruit tart, dan Éclair semuanya masuk kelompok Tarts and Pastries."
+      },
+      {
+        id: 29, chapter: 8, chapterTitle: "Types of Pastries and Desserts", type: "pgk",
+        question: "Select ALL grammatically CORRECT sentences describing or comparing bakery products.",
+        options: {
+          A: "The chocolate cake is sweet, soft, and moist.",
+          B: "A cookie is smaller than a birthday cake.",
+          C: "This is a strawberry tart beautiful.",
+          D: "The croissant is crispier than the bread roll."
+        },
+        correct: ["A", "B", "D"],
+        wrongReasons: {
+          C: "Urutan kata sifat salah! Kata sifat ('beautiful') harus berada di DEPAN kata benda ('strawberry tart'), bukan di belakangnya."
+        },
+        ruleHint: "Periksa posisi adjective (sebelum noun atau setelah 'be') serta akhiran komparatif ('-er / -ier + than').",
+        successNote: "Mantap! A, B, dan D semuanya tepat secara susunan kata sifat dan perbandingan."
+      },
+      {
+        id: 30, chapter: 8, chapterTitle: "Types of Pastries and Desserts", type: "pgk",
+        question: "Select ALL sentences that use relative pronouns (who, which, that) CORRECTLY.",
+        options: {
+          A: "Croissants are French pastries which have many flaky layers.",
+          B: "A fruit tart is a pastry that has a crispy crust and fresh fruit on top.",
+          C: "The pastry chef which bakes the bread arrives at 5 a.m.",
+          D: "The baker who makes the croissants checks their quality every morning."
+        },
+        correct: ["A", "B", "D"],
+        wrongReasons: {
+          C: "'The pastry chef' adalah manusia (orang), sehingga tidak boleh dihubungkan dengan 'which' (khusus benda/produk)."
+        },
+        ruleHint: "Ingat: 'who' hanya untuk orang (chef, baker, customer), sedangkan 'which' dan 'that' digunakan untuk produk bakery (croissants, fruit tart).",
+        successNote: "Benar! A ('pastries which'), B ('pastry that'), dan D ('baker who') semuanya tepat."
+      },
+
+      // ==================== CHAPTER 9: FILLINGS, CREAMS, AND SAUCES (No. 31–40) ====================
+      {
+        id: 31, chapter: 9, chapterTitle: "Fillings, Creams, and Sauces", type: "pg",
+        question: "Choose the grammatically CORRECT sentence using the linking verb 'taste'.",
+        options: {
+          A: "The chocolate cream tastes sweetly.",
+          B: "The chocolate cream tastes sweet.",
+          C: "The chocolate cream taste sweetly.",
+          D: "The chocolate cream is taste sweet."
+        },
+        correct: ["B"],
+        wrongReasons: {
+          A: "Kesalahan umum Chapter 9! Setelah linking verb ('taste'), kita WAJIB memakai kata sifat (adjective), BUKAN adverb berakhiran '-ly' ('sweetly').",
+          C: "Ada dua kesalahan: subjek tunggal 'The chocolate cream' lupa akhiran '-s' pada 'taste', dan 'sweetly' salah (seharusnya adjective).",
+          D: "Jangan menggabungkan 'is' di depan kata kerja 'taste' pada kalimat Simple Present aktif."
+        },
+        ruleHint: "Aturan penting Chapter 9: 'Subject + linking verb (taste/smell/feel/look) + ADJECTIVE' (tanpa akhiran '-ly', dan perhatikan '-s' untuk subjek tunggal).",
+        successNote: "Benar! 'The chocolate cream tastes sweet.' memakai '-s' untuk subjek tunggal dan adjective 'sweet' tanpa '-ly'."
+      },
+      {
+        id: 32, chapter: 9, chapterTitle: "Fillings, Creams, and Sauces", type: "pg",
+        question: "Look at the freshly beaten whipped cream in the bowl! It ______ very ______.",
+        options: {
+          A: "looks / fluffily",
+          B: "look / fluffy",
+          C: "looks / fluffy",
+          D: "looking / fluffy"
+        },
+        correct: ["C"],
+        wrongReasons: {
+          A: "Setelah linking verb 'looks', gunakan kata sifat (adjective), bukan adverb berakhiran '-ly' ('fluffily').",
+          B: "Subjek 'It' adalah orang ketiga tunggal, sehingga kata kerja 'look' wajib diberi akhiran '-s'.",
+          D: "'looking' tidak bisa berdiri sendiri tanpa kata bantu 'is', dan untuk kualitas umum kita memakai Simple Present linking verb."
+        },
+        ruleHint: "Gabungkan 2 aturan: subjek tunggal 'It' membutuhkan akhiran '-s' pada linking verb, lalu diikuti ADJECTIVE (bukan '-ly').",
+        successNote: "Tepat! 'It looks very fluffy.' menggunakan 'looks' (tunggal) + adjective 'fluffy'."
+      },
+      {
+        id: 33, chapter: 9, chapterTitle: "Fillings, Creams, and Sauces", type: "pg",
+        question: "Chef: 'How is the vanilla custard?' Cook: 'The custard ______ smooth, and the caramel sauce ______ thick.'",
+        options: {
+          A: "feel / are",
+          B: "feels / is",
+          C: "feels / are",
+          D: "feel / is"
+        },
+        correct: ["B"],
+        wrongReasons: {
+          A: "'The custard' adalah benda uncountable/tunggal (perlu '-s' pada feel), dan 'the caramel sauce' juga tunggal (tidak boleh memakai 'are').",
+          C: "'the caramel sauce' adalah uncountable/tunggal, sehingga tidak cocok memakai 'are'.",
+          D: "Subjek tunggal 'The custard' membutuhkan akhiran '-s' pada kata kerja 'feel'."
+        },
+        ruleHint: "Baik 'The custard' maupun 'the caramel sauce' adalah benda uncountable (dianggap TUNGGAL). Gunakan bentuk kata kerja tunggal untuk keduanya.",
+        successNote: "Benar! Kedua subjek bersifat tunggal/uncountable, sehingga memakai 'feels' dan 'is'."
+      },
+      {
+        id: 34, chapter: 9, chapterTitle: "Fillings, Creams, and Sauces", type: "pg",
+        question: "Complete the sentence using the pattern 'smells like / tastes like + NOUN':\n'This pastry cream ______ fresh vanilla, and the ganache ______ dark chocolate.'",
+        options: {
+          A: "smells / tastes",
+          B: "smells like / tastes like",
+          C: "is smell like / is taste like",
+          D: "smell like / taste like"
+        },
+        correct: ["B"],
+        wrongReasons: {
+          A: "Jika diikuti KATA BENDA ('fresh vanilla' dan 'dark chocolate'), kita perlu menambahkan kata 'like' setelah 'smells' dan 'tastes'.",
+          C: "Jangan menambahkan 'is' sebelum kata kerja 'smell' atau 'taste'.",
+          D: "Subjek 'This pastry cream' dan 'the ganache' keduanya tunggal, sehingga kata kerjanya wajib memakai akhiran '-s'."
+        },
+        ruleHint: "Bedakan pola Chapter 9: 'It smells + ADJECTIVE' vs 'It smells LIKE + NOUN'. Karena 'fresh vanilla' dan 'dark chocolate' adalah kata benda (noun), pastikan ada 'like' dan akhiran '-s'!",
+        successNote: "Sempurna! 'smells like fresh vanilla' dan 'tastes like dark chocolate' tepat mengikuti pola linking verb + like + noun."
+      },
+      {
+        id: 35, chapter: 9, chapterTitle: "Fillings, Creams, and Sauces", type: "pg",
+        question: "Quality Check: The pastry chef says, 'We cannot pipe this cream onto the cake because it flows too easily. It is too ______.'",
+        options: {
+          A: "firm",
+          B: "runny",
+          C: "dense",
+          D: "crunchy"
+        },
+        correct: ["B"],
+        wrongReasons: {
+          A: "'firm' berarti padat/kokoh (justru bagus untuk mempertahankan bentuk piping), bukan terlalu cair.",
+          C: "'dense' berarti padat/berat, bukan mudah mengalir.",
+          D: "'crunchy' berarti renyah (seperti kacang atau kukis), bukan konsistensi cair."
+        },
+        ruleHint: "Cek Word Bank Consistency di Chapter 9: kata sifat apa yang berarti 'terlalu cair / mudah mengalir' sehingga tidak bisa dibentuk dengan piping bag?",
+        successNote: "Benar! 'Runny' berarti terlalu cair/mudah mengalir sehingga perlu dibuat lebih kental."
+      },
+      {
+        id: 36, chapter: 9, chapterTitle: "Fillings, Creams, and Sauces", type: "pg",
+        question: "A good pastry cream should feel smooth. It should NOT look ______ (menggumpal) or feel ______ (berbutir).",
+        options: {
+          A: "creamy / fluffy",
+          B: "lumpy / grainy",
+          C: "thick / soft",
+          D: "rich / mild"
+        },
+        correct: ["B"],
+        wrongReasons: {
+          A: "'creamy' dan 'fluffy' adalah tekstur positif yang justru diinginkan pada krim, bukan cacat tekstur.",
+          C: "'thick' (kental) dan 'soft' (lembut) bukan arti dari menggumpal maupun berbutir.",
+          D: "'rich' dan 'mild' adalah kata sifat RASA (taste), bukan tekstur menggumpal/berbutir."
+        },
+        ruleHint: "Ingat dua kata sifat cacat tekstur di Word Bank Chapter 9: satu berarti 'menggumpal' (lumps → ...) dan satu berarti 'berbutir' (grains → ...).",
+        successNote: "Tepat! 'lumpy' (menggumpal) dan 'grainy' (berbutir) adalah tekstur yang harus dihindari pada pastry cream."
+      },
+      {
+        id: 37, chapter: 9, chapterTitle: "Fillings, Creams, and Sauces", type: "pg",
+        question: "Choose the sentence that correctly contrasts two fillings/creams using 'but'.",
+        options: {
+          A: "Whipped cream is light, but buttercream is rich.",
+          B: "Chocolate cream is sweet, but caramel sauce is also sweet.",
+          C: "Custard is thick, but ganache is thick.",
+          D: "Strawberry jam is sticky, but honey is sticky."
+        },
+        correct: ["A"],
+        wrongReasons: {
+          B: "Kata penghubung 'but' digunakan untuk menunjukkan PERBEDAAN/KONTRAS, bukan dua hal yang sama ('sweet' vs 'also sweet').",
+          C: "Kedua sisi kalimat sama-sama 'thick', sehingga tidak ada perbedaan yang dikontraskan oleh 'but'.",
+          D: "Kedua sisi sama-sama 'sticky', bukan perbedaan karakter."
+        },
+        ruleHint: "Di Chapter 9, kata 'but' dipakai untuk membandingkan dua sifat yang BERBEDA (misal: sweet vs sour, thick vs thin, light vs rich).",
+        successNote: "Benar! 'Whipped cream is light, but buttercream is rich.' menunjukkan kontras yang jelas dengan 'but'."
+      },
+      {
+        id: 38, chapter: 9, chapterTitle: "Fillings, Creams, and Sauces", type: "pgk",
+        question: "Select ALL grammatically CORRECT sentences using linking verbs (be, taste, smell, feel, look).",
+        options: {
+          A: "The lemon filling tastes slightly sour.",
+          B: "The buttercream feels soft and creamy.",
+          C: "The vanilla cream smells fragrantly.",
+          D: "The chocolate sauce looks glossy and thick."
+        },
+        correct: ["A", "B", "D"],
+        wrongReasons: {
+          C: "'smells fragrantly' salah karena setelah linking verb 'smells', harus memakai kata sifat ('fragrant'), bukan adverb '-ly'."
+        },
+        ruleHint: "Cek tiap kalimat: subjek tunggal + linking verb berakhiran '-s' + ADJECTIVE (jangan ada akhiran '-ly').",
+        successNote: "Mantap! A, B, dan D semuanya tepat memakai linking verb + adjective."
+      },
+      {
+        id: 39, chapter: 9, chapterTitle: "Fillings, Creams, and Sauces", type: "pgk",
+        question: "Select ALL sentences that contain a GRAMMAR MISTAKE according to Chapter 9.",
+        options: {
+          A: "The cream tastes sweetly.",
+          B: "The custard feel smooth.",
+          C: "The strawberry jam tastes sweet and fruity.",
+          D: "The chocolate sauce are thick."
+        },
+        correct: ["A", "B", "D"],
+        wrongReasons: {
+          C: "Hati-hati baca perintah soal! Soal meminta kalimat yang SALAH secara grammar, sedangkan 'The strawberry jam tastes sweet and fruity.' sudah benar."
+        },
+        ruleHint: "Cari semua kalimat yang melanggar aturan Chapter 9 (memakai '-ly' setelah linking verb, lupa '-s' pada subjek tunggal, atau memakai 'are' untuk benda uncountable).",
+        successNote: "Teliti sekali! A salah ('tastes sweet'), B salah ('feels smooth'), dan D salah ('is thick')."
+      },
+      {
+        id: 40, chapter: 9, chapterTitle: "Fillings, Creams, and Sauces", type: "pgk",
+        question: "Select ALL fillings, creams, or sauces that are CORRECTLY matched with their typical taste or texture.",
+        options: {
+          A: "Lemon filling → sour",
+          B: "Caramel sauce → sticky and sweet",
+          C: "Whipped cream → light and fluffy",
+          D: "Dark chocolate ganache → salty and crunchy"
+        },
+        correct: ["A", "B", "C"],
+        wrongReasons: {
+          D: "Dark chocolate ganache bertekstur halus/kental (smooth/rich) dan sedikit pahit-manis, BUKAN asin dan renyah ('salty and crunchy')."
+        },
+        ruleHint: "Cocokkan masing-masing produk dengan karakter rasa dan tekstur aslinya berdasarkan Word Bank Chapter 9.",
+        successNote: "Benar! Lemon filling (sour), caramel sauce (sticky & sweet), dan whipped cream (light & fluffy) semuanya tepat."
+      },
+
+      // ==================== CHAPTER 10: DECORATING AND FINISHING (No. 41–50) ====================
+      {
+        id: 41, chapter: 10, chapterTitle: "Decorating and Finishing", type: "pg",
+        question: "Which decorating technique means 'pouring a thin stream of chocolate or caramel sauce lightly over a cake'?",
+        options: {
+          A: "Dusting",
+          B: "Drizzling",
+          C: "Piping",
+          D: "Smoothing"
+        },
+        correct: ["B"],
+        wrongReasons: {
+          A: "'Dusting' berarti menaburkan bubuk halus (seperti gula halus/bubuk kakao) menggunakan ayakan, bukan menuang saus.",
+          C: "'Piping' berarti membentuk hiasan krim menggunakan piping bag dan nozzle.",
+          D: "'Smoothing' berarti menghaluskan permukaan krim kue menggunakan spatula/cake scraper."
+        },
+        ruleHint: "Cek Word Bank Decorating Techniques di Chapter 10: cari istilah bahasa Inggris untuk 'menuangkan saus tipis-tipis' di atas kue.",
+        successNote: "Benar! 'Drizzling' adalah teknik menuangkan saus (seperti karamel atau cokelat cair) tipis-tipis sebagai hiasan."
+      },
+      {
+        id: 42, chapter: 10, chapterTitle: "Decorating and Finishing", type: "pg",
+        question: "Which decorating tool is a rotating stand that makes it easier to spread icing smoothly around a birthday cake?",
+        options: {
+          A: "Squeeze bottle",
+          B: "Turntable",
+          C: "Piping tip",
+          D: "Sieve"
+        },
+        correct: ["B"],
+        wrongReasons: {
+          A: "'Squeeze bottle' adalah botol tekan untuk menuang saus tipis (drizzling), bukan alas putar.",
+          C: "'Piping tip / nozzle' adalah ujung spuit pada piping bag untuk membentuk motif krim.",
+          D: "'Sieve' adalah ayakan untuk menaburkan gula halus atau mengayak tepung."
+        },
+        ruleHint: "Cari nama alat dekorasi di Word Bank Chapter 10 yang artinya 'meja putar kue'.",
+        successNote: "Tepat! 'Turntable' (meja putar kue) membantu pastry cook meratakan icing di sekeliling kue dengan mudah."
+      },
+      {
+        id: 43, chapter: 10, chapterTitle: "Decorating and Finishing", type: "pg",
+        question: "Complete the cupcake decorating steps with the right prepositions:\n'First, put the buttercream ______ the piping bag. Next, put the colorful sprinkles ______ top of the cream.'",
+        options: {
+          A: "on / in",
+          B: "in / on",
+          C: "under / over",
+          D: "between / under"
+        },
+        correct: ["B"],
+        wrongReasons: {
+          A: "Terbalik! Krim dimasukkan KE DALAM kantong piping bag, sedangkan sprinkles ditaburkan DI ATAS permukaan krim.",
+          C: "'under' berarti di bawah kantong, tidak masuk akal untuk mengisi piping bag.",
+          D: "'between' (di antara) dan 'under' (di bawah) tidak sesuai untuk memasukkan krim ke kantong maupun menaruh topping di atas."
+        },
+        ruleHint: "Cek tabel Prepositions of Place Chapter 10: 'di dalam wadah/kantong' vs 'di atas permukaan / ... top of'.",
+        successNote: "Benar! 'in the piping bag' (di dalam kantong) dan 'on top of the cream' (di atas krim)."
+      },
+      {
+        id: 44, chapter: 10, chapterTitle: "Decorating and Finishing", type: "pg",
+        question: "Chef: 'Spread the chocolate glaze ______ the whole cake, and then pipe the white cream ______ the edge of the cake.'",
+        options: {
+          A: "under / in",
+          B: "over / around",
+          C: "between / under",
+          D: "next to / in"
+        },
+        correct: ["B"],
+        wrongReasons: {
+          A: "Glaze tidak dioleskan di bawah ('under') kue, dan krim hias pinggiran tidak disemprotkan di dalam ('in') pinggiran.",
+          C: "'between' dipakai untuk posisi di antara 2 lapisan, dan 'under' berarti di bawah.",
+          D: "'next to' berarti di sebelah (bukan melapisi seluruh kue), dan 'in' tidak tepat untuk mengelilingi tepi kue."
+        },
+        ruleHint: "Ingat dua preposisi penting dekorasi Chapter 10: satu untuk 'melapisi/menuang di atas seluruh permukaan' (Spread/Pour ... the cake) dan satu lagi untuk 'di sekeliling' pinggiran kue.",
+        successNote: "Tepat! 'over the whole cake' (melapisi seluruh kue) dan 'around the edge' (di sekeliling tepian kue)."
+      },
+      {
+        id: 45, chapter: 10, chapterTitle: "Decorating and Finishing", type: "pg",
+        question: "Put the fresh fruit slices ______ the two cake layers, and place one red cherry ______ the cupcake.",
+        options: {
+          A: "under / around",
+          B: "between / in the middle of",
+          C: "over / under",
+          D: "in / next to"
+        },
+        correct: ["B"],
+        wrongReasons: {
+          A: "Irisan buah untuk isian lapisan tidak ditaruh di bawah ('under') kue, dan satu buah ceri tidak bisa mengelilingi ('around') cupcake.",
+          C: "'over' berarti menutupi atas (bukan di antara dua lapisan), dan 'under' berarti di bawah cupcake.",
+          D: "'in' kurang tepat untuk 'the two cake layers' (yang jelas menunjuk ruang di antara dua benda)."
+        },
+        ruleHint: "Perhatikan petunjuk ruangnya: 'the two cake layers' (di antara dua lapisan) dan posisi satu buah ceri tepat di pusat/tengah cupcake.",
+        successNote: "Benar! 'between the two cake layers' (di antara dua lapisan) dan 'in the middle of the cupcake' (di tengah cupcake)."
+      },
+      {
+        id: 46, chapter: 10, chapterTitle: "Decorating and Finishing", type: "pg",
+        question: "Which negative imperative is an important decorating rule from Chapter 10?",
+        options: {
+          A: "Don't put the toppings on a warm cake.",
+          B: "Don't putting the toppings on a warm cake.",
+          C: "Don't clean the plate before serving.",
+          D: "Don't to press the piping bag too hard."
+        },
+        correct: ["A"],
+        wrongReasons: {
+          B: "Setelah 'Don't', kata kerja wajib bentuk dasar (V1), bukan verb-ing ('putting').",
+          C: "Piring kue justru HARUS dibersihkan tepinya sebelum disajikan agar terlihat rapi.",
+          D: "Setelah 'Don't', JANGAN menyelipkan kata 'to' sebelum kata kerjanya."
+        },
+        ruleHint: "Cari kalimat yang benar secara grammar ('Don't + BASE VERB') DAN masuk akal secara teknik pastry (mengapa krim/topping tidak boleh ditaruh di kue yang masih hangat?).",
+        successNote: "Tepat! 'Don't put the toppings on a warm cake.' karena panas kue akan melelehkan krim atau topping."
+      },
+      {
+        id: 47, chapter: 10, chapterTitle: "Decorating and Finishing", type: "pg",
+        question: "Choose the decorating explanation that uses BOTH sequencing words AND punctuation/imperatives correctly.",
+        options: {
+          A: "Finally, prepare the cupcake. First, add a cherry on top.",
+          B: "First, prepare the cupcake. Next, pipe the buttercream on top. Finally, place a cherry in the middle.",
+          C: "First, preparing the cupcake. Next, piping the buttercream. Finally, placing a cherry.",
+          D: "Next, prepare the cupcake. First, pipe the buttercream. Then, clean the edges."
+        },
+        correct: ["B"],
+        wrongReasons: {
+          A: "Urutannya terbalik — 'Finally' tidak boleh di awal dan 'First' tidak boleh di akhir.",
+          C: "Setelah sequencing words untuk memberi instruksi, gunakan BASE VERB (imperative), bukan verb-ing ('preparing/piping/placing').",
+          D: "'Next' tidak boleh mendahului 'First' saat memulai proses."
+        },
+        ruleHint: "Ingat pola Chapter 10: 'Sequencing word + comma + BASE VERB (imperative)' dalam urutan logis (First → Next → Then/After that → Finally).",
+        successNote: "Sempurna! Urutannya runtut dan setiap langkah menggunakan tanda koma + base verb yang benar."
+      },
+      {
+        id: 48, chapter: 10, chapterTitle: "Decorating and Finishing", type: "pgk",
+        question: "Select ALL grammatically CORRECT decorating instructions using prepositions of place.",
+        options: {
+          A: "Place the plate under the cake.",
+          B: "Pour the chocolate glaze over the cake.",
+          C: "Put the cream under the piping bag.",
+          D: "Pipe the buttercream around the edge of the cake."
+        },
+        correct: ["A", "B", "D"],
+        wrongReasons: {
+          C: "'under the piping bag' berarti di bawah kantong, padahal krim seharusnya dimasukkan KE DALAM ('in/into') piping bag."
+        },
+        ruleHint: "Periksa ketepatan posisi preposisi: piring di bawah kue (under), glaze melapisi kue (over), krim di dalam kantong (in), dan krim di sekeliling tepi (around).",
+        successNote: "Mantap! A, B, dan D menggunakan preposisi tempat yang tepat dan logis untuk dekorasi."
+      },
+      {
+        id: 49, chapter: 10, chapterTitle: "Decorating and Finishing", type: "pgk",
+        question: "Select ALL decorating techniques that are CORRECTLY matched with their Indonesian meaning.",
+        options: {
+          A: "Glazing → Melapisi dengan glaze",
+          B: "Dusting → Menaburkan bubuk (seperti gula halus)",
+          C: "Piping → Memanggang di oven",
+          D: "Spreading → Meratakan krim atau icing"
+        },
+        correct: ["A", "B", "D"],
+        wrongReasons: {
+          C: "'Piping' berarti menghias menggunakan piping bag (kantong semprot krim), bukan memanggang di oven ('baking')."
+        },
+        ruleHint: "Cocokkan arti tiap teknik dekorasi dari Word Bank Chapter 10 dengan teliti.",
+        successNote: "Benar! Glazing, Dusting, dan Spreading semuanya cocok dengan artinya."
+      },
+      {
+        id: 50, chapter: 10, chapterTitle: "Decorating and Finishing", type: "pgk",
+        question: "Select ALL items that belong to the TOPPINGS AND DECORATIONS category (NOT tools).",
+        options: {
+          A: "Sprinkles",
+          B: "Chocolate shavings",
+          C: "Edible flowers",
+          D: "Cake scraper"
+        },
+        correct: ["A", "B", "C"],
+        wrongReasons: {
+          D: "'Cake scraper' (pengerik/perata kue) adalah ALAT dekorasi (Decorating Tool), bukan bahan hiasan/topping yang bisa dimakan."
+        },
+        ruleHint: "Bedakan bahan hiasan yang bisa dimakan (Toppings & Decorations) dengan peralatan kerja (Decorating Tools) dari Word Bank Chapter 10.",
+        successNote: "Tepat! Sprinkles, chocolate shavings, dan edible flowers semuanya adalah topping dan dekorasi kue."
+      }
+    ];
+
+    // ==================== STATE & LOCALSTORAGE ====================
+    const STORAGE_KEY = "quiz_book2_ch6_10_v1";
+
+    /**
+     * progress[id] = {
+     *   status: 'unanswered' | 'first_try' | 'corrected' | 'wrong',
+     *   attempts: number,
+     *   selected: string[]
+     * }
+     */
+    const state = {
+      filter: "all",          // 'all' | 'ch6'..'ch10' | 'pg' | 'pgk' | 'unsolved' | 'wrong'
+      activeIds: [],          // question IDs matching current filter
+      currentIndex: 0,        // index inside activeIds
+      selection: [],          // temporary selected letters ['A'] or ['A','C']
+      progress: {},           // persisted map
+      lastQuestionId: 1,      // last opened question ID
+      view: "quiz"            // 'quiz' | 'eval'
+    };
+
+    function loadState() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (raw) {
+          const parsed = JSON.parse(raw);
+          if (parsed && typeof parsed === "object") {
+            state.progress = parsed.progress || {};
+            state.lastQuestionId = parsed.lastQuestionId || 1;
+            state.filter = parsed.filter || "all";
+          }
+        }
+      } catch (err) {
+        console.warn("Gagal membaca localStorage:", err);
+      }
+    }
+
+    function saveState() {
+      try {
+        const q = getCurrentQuestion();
+        if (q) state.lastQuestionId = q.id;
+        localStorage.setItem(STORAGE_KEY, JSON.stringify({
+          progress: state.progress,
+          lastQuestionId: state.lastQuestionId,
+          filter: state.filter
+        }));
+      } catch (err) {
+        console.warn("Gagal menyimpan localStorage:", err);
+      }
+    }
+
+    function getProg(id) {
+      return state.progress[id] || { status: "unanswered", attempts: 0, selected: [] };
+    }
+
+    function isSolved(status) {
+      return status === "first_try" || status === "corrected";
+    }
+
+    // ==================== DOM REFERENCES ====================
+    const headerScoreBadge = document.getElementById("headerScoreBadge");
+    const headerCounterText = document.getElementById("headerCounterText");
+    const globalProgressBar = document.getElementById("globalProgressBar");
+    const wrongModeBanner = document.getElementById("wrongModeBanner");
+    const exitWrongModeBtn = document.getElementById("exitWrongModeBtn");
+    const openEvalBtn = document.getElementById("openEvalBtn");
+    const openDrawerBtn = document.getElementById("openDrawerBtn");
+    const headerResetBtn = document.getElementById("headerResetBtn");
+
+    const quizView = document.getElementById("quizView");
+    const evalView = document.getElementById("evalView");
+    const stickyBottomBar = document.getElementById("stickyBottomBar");
+
+    const emptyFilterCard = document.getElementById("emptyFilterCard");
+    const emptyToEvalBtn = document.getElementById("emptyToEvalBtn");
+    const emptyToAllBtn = document.getElementById("emptyToAllBtn");
+
+    const questionCard = document.getElementById("questionCard");
+    const qNumberBadge = document.getElementById("qNumberBadge");
+    const qChapterBadge = document.getElementById("qChapterBadge");
+    const qTypeBadge = document.getElementById("qTypeBadge");
+    const qAttemptBadge = document.getElementById("qAttemptBadge");
+    const qTopicLabel = document.getElementById("qTopicLabel");
+    const questionText = document.getElementById("questionText");
+    const pgkCallout = document.getElementById("pgkCallout");
+    const optionsContainer = document.getElementById("optionsContainer");
+    const feedbackCard = document.getElementById("feedbackCard");
+
+    const prevBtn = document.getElementById("prevBtn");
+    const checkBtn = document.getElementById("checkBtn");
+    const nextBtn = document.getElementById("nextBtn");
+    const nextBtnLabel = document.getElementById("nextBtnLabel");
+
+    // Drawer elements
+    const drawerModal = document.getElementById("drawerModal");
+    const closeDrawerBtn = document.getElementById("closeDrawerBtn");
+    const drawerSummaryText = document.getElementById("drawerSummaryText");
+    const drawerGrid = document.getElementById("drawerGrid");
+    const drawerEvalBtn = document.getElementById("drawerEvalBtn");
+
+    // Evaluation elements
+    const evalEmoji = document.getElementById("evalEmoji");
+    const evalSub = document.getElementById("evalSub");
+    const evalTotalScore = document.getElementById("evalTotalScore");
+    const evalAccuracyPct = document.getElementById("evalAccuracyPct");
+    const statCorrect = document.getElementById("statCorrect");
+    const statWrong = document.getElementById("statWrong");
+    const statUnanswered = document.getElementById("statUnanswered");
+    const evalFirstTryChip = document.getElementById("evalFirstTryChip");
+    const evalPgScore = document.getElementById("evalPgScore");
+    const evalPgPct = document.getElementById("evalPgPct");
+    const evalPgkScore = document.getElementById("evalPgkScore");
+    const evalPgkPct = document.getElementById("evalPgkPct");
+    const evalChapterList = document.getElementById("evalChapterList");
+    const retryWrongBtn = document.getElementById("retryWrongBtn");
+    const backToQuizBtn = document.getElementById("backToQuizBtn");
+    const evalResetAllBtn = document.getElementById("evalResetAllBtn");
+
+    // Reset modal
+    const resetModal = document.getElementById("resetModal");
+    const cancelResetBtn = document.getElementById("cancelResetBtn");
+    const confirmResetBtn = document.getElementById("confirmResetBtn");
+
+    // ==================== FILTERING & VIEW LOGIC ====================
+    function getFilteredQuestions(filterKey) {
+      if (filterKey === "all") return QUESTIONS;
+      if (filterKey === "ch6") return QUESTIONS.filter(q => q.chapter === 6);
+      if (filterKey === "ch7") return QUESTIONS.filter(q => q.chapter === 7);
+      if (filterKey === "ch8") return QUESTIONS.filter(q => q.chapter === 8);
+      if (filterKey === "ch9") return QUESTIONS.filter(q => q.chapter === 9);
+      if (filterKey === "ch10") return QUESTIONS.filter(q => q.chapter === 10);
+      if (filterKey === "pg") return QUESTIONS.filter(q => q.type === "pg");
+      if (filterKey === "pgk") return QUESTIONS.filter(q => q.type === "pgk");
+      if (filterKey === "unsolved") return QUESTIONS.filter(q => !isSolved(getProg(q.id).status));
+      if (filterKey === "wrong") return QUESTIONS.filter(q => getProg(q.id).status === "wrong");
+      return QUESTIONS;
+    }
+
+    function updateFilterChipsUI() {
+      document.querySelectorAll(".filter-chip").forEach(btn => {
+        if (btn.dataset.filter === state.filter) {
+          btn.className = "filter-chip shrink-0 px-3 py-1.5 rounded-full text-xs font-bold bg-[#B45309] text-white shadow-xs transition active:scale-95";
+        } else {
+          btn.className = "filter-chip shrink-0 px-3 py-1.5 rounded-full text-xs font-bold bg-white border border-amber-200 text-[#451A03]/80 transition active:scale-95";
+        }
+      });
+
+      if (state.filter === "wrong") {
+        wrongModeBanner.classList.remove("hidden");
+      } else {
+        wrongModeBanner.classList.add("hidden");
+      }
+    }
+
+    function applyFilter(filterKey, preferredId = null) {
+      const list = getFilteredQuestions(filterKey);
+      state.filter = filterKey;
+      state.activeIds = list.map(q => q.id);
+      updateFilterChipsUI();
+
+      if (state.activeIds.length === 0) {
+        state.currentIndex = 0;
+      } else if (preferredId && state.activeIds.includes(preferredId)) {
+        state.currentIndex = state.activeIds.indexOf(preferredId);
+      } else {
+        const firstUnfinished = state.activeIds.findIndex(id => !isSolved(getProg(id).status));
+        state.currentIndex = firstUnfinished >= 0 ? firstUnfinished : 0;
+      }
+
+      saveState();
+      if (state.view === "quiz") {
+        renderCurrentQuestion();
+      }
+    }
+
+    function setView(viewName) {
+      state.view = viewName;
+      if (viewName === "quiz") {
+        evalView.classList.add("hidden");
+        quizView.classList.remove("hidden");
+        stickyBottomBar.classList.remove("hidden");
+        renderCurrentQuestion();
+      } else {
+        quizView.classList.add("hidden");
+        stickyBottomBar.classList.add("hidden");
+        evalView.classList.remove("hidden");
+        renderEvaluation();
+      }
+      window.scrollTo({ top: 0, behavior: "instant" });
+    }
+
+    document.querySelectorAll(".filter-chip").forEach(btn => {
+      btn.addEventListener("click", () => {
+        applyFilter(btn.dataset.filter, null);
+        setView("quiz");
+      });
+    });
+
+    exitWrongModeBtn.addEventListener("click", () => {
+      applyFilter("all", null);
+      setView("quiz");
+    });
+
+    emptyToEvalBtn.addEventListener("click", () => setView("eval"));
+    emptyToAllBtn.addEventListener("click", () => {
+      applyFilter("all", 1);
+      setView("quiz");
+    });
+
+    // ==================== HEADER STATS ====================
+    function updateHeaderStats() {
+      const solvedCount = QUESTIONS.filter(q => isSolved(getProg(q.id).status)).length;
+      const pct = Math.round((solvedCount / QUESTIONS.length) * 100);
+      headerScoreBadge.textContent = `Skor: ${solvedCount}/50`;
+      globalProgressBar.style.width = `${pct}%`;
+
+      if (state.activeIds.length > 0) {
+        headerCounterText.textContent = `Soal ${state.currentIndex + 1} / ${state.activeIds.length}`;
+      } else {
+        headerCounterText.textContent = `0 / 0`;
+      }
+    }
+
+    // ==================== QUESTION & OPTIONS RENDERING ====================
+    function getCurrentQuestion() {
+      if (state.activeIds.length === 0) return null;
+      const id = state.activeIds[state.currentIndex];
+      return QUESTIONS.find(q => q.id === id) || null;
+    }
+
+    function renderCurrentQuestion() {
+      updateHeaderStats();
+      const q = getCurrentQuestion();
+
+      if (!q) {
+        emptyFilterCard.classList.remove("hidden");
+        questionCard.classList.add("hidden");
+        optionsContainer.classList.add("hidden");
+        feedbackCard.classList.add("hidden");
+        stickyBottomBar.classList.add("hidden");
+        return;
+      }
+
+      emptyFilterCard.classList.add("hidden");
+      questionCard.classList.remove("hidden");
+      optionsContainer.classList.remove("hidden");
+      stickyBottomBar.classList.remove("hidden");
+
+      const prog = getProg(q.id);
+      const solved = isSolved(prog.status);
+
+      if (solved) {
+        state.selection = [...q.correct];
+      } else if (prog.status === "wrong" && prog.selected.length > 0) {
+        state.selection = [...prog.selected];
+      } else {
+        state.selection = [];
+      }
+
+      const meta = CHAPTER_META[q.chapter];
+      qNumberBadge.textContent = `No. ${q.id}`;
+      qChapterBadge.textContent = meta.short;
+      qTopicLabel.textContent = q.chapterTitle;
+      qAttemptBadge.textContent = prog.attempts > 0 ? `${prog.attempts}x cek` : "";
+      questionText.textContent = q.question;
+
+      if (q.type === "pg") {
+        qTypeBadge.textContent = "Pilihan Ganda";
+        qTypeBadge.className = "px-2.5 py-1 rounded-full text-[11px] font-extrabold bg-stone-100 text-[#451A03]";
+        pgkCallout.classList.add("hidden");
+      } else {
+        qTypeBadge.textContent = "Pilihan Ganda Kompleks • Pilih semua jawaban yang benar";
+        qTypeBadge.className = "px-2.5 py-1 rounded-full text-[11px] font-extrabold bg-indigo-100 text-indigo-900";
+        pgkCallout.classList.remove("hidden");
+      }
+
+      // Subtle card animation
+      questionCard.classList.remove("animate-fade-up");
+      void questionCard.offsetWidth;
+      questionCard.classList.add("animate-fade-up");
+
+      renderOptions(q, solved);
+
+      if (solved) {
+        renderCorrectFeedback(q, prog);
+      } else if (prog.status === "wrong" && prog.selected.length > 0) {
+        renderAutoCorrectionFeedback(q, prog.selected);
+      } else {
+        feedbackCard.classList.add("hidden");
+        feedbackCard.innerHTML = "";
+      }
+
+      updateBottomBar(solved, prog);
+      saveState();
+      quizView.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function renderOptions(q, solved) {
+      optionsContainer.innerHTML = "";
+
+      ["A", "B", "C", "D"].forEach(letter => {
+        const isSelected = state.selection.includes(letter);
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.disabled = solved;
+
+        let cardCls = "w-full min-h-[58px] text-left p-3.5 rounded-2xl border-2 transition-all flex items-center gap-3 ";
+        let badgeCls = "w-8 h-8 rounded-xl flex items-center justify-center font-extrabold text-sm shrink-0 transition-all ";
+        let indicator = "";
+
+        if (solved && isSelected) {
+          cardCls += "border-[#15803D] bg-emerald-50 text-emerald-950 shadow-xs";
+          badgeCls += "bg-[#15803D] text-white";
+          indicator = `<span class="ml-auto text-[#15803D] font-extrabold text-lg shrink-0">✓</span>`;
+        } else if (solved && !isSelected) {
+          cardCls += "border-stone-200/70 bg-white/60 text-stone-400 opacity-70";
+          badgeCls += "bg-stone-100 text-stone-400";
+        } else if (isSelected) {
+          if (q.type === "pgk") {
+            cardCls += "border-indigo-600 bg-indigo-50/90 text-indigo-950 shadow-xs active:scale-[0.99]";
+            badgeCls += "bg-indigo-600 text-white";
+            indicator = `<span class="ml-auto w-5 h-5 rounded-md bg-indigo-600 text-white flex items-center justify-center text-xs font-bold shrink-0">✓</span>`;
+          } else {
+            cardCls += "border-[#D97706] bg-amber-50/90 text-[#451A03] shadow-xs active:scale-[0.99]";
+            badgeCls += "bg-[#D97706] text-white";
+            indicator = `<span class="ml-auto w-5 h-5 rounded-full border-[5px] border-[#D97706] bg-white shrink-0"></span>`;
+          }
+        } else {
+          cardCls += "border-amber-200/80 bg-white hover:border-amber-400 text-[#451A03] active:scale-[0.99]";
+          badgeCls += "bg-amber-50 text-[#B45309]";
+          indicator = q.type === "pgk"
+            ? `<span class="ml-auto w-5 h-5 rounded-md border-2 border-amber-300 bg-white shrink-0"></span>`
+            : `<span class="ml-auto w-5 h-5 rounded-full border-2 border-amber-300 bg-white shrink-0"></span>`;
+        }
+
+        btn.className = cardCls;
+        btn.innerHTML = `
+          <span class="${badgeCls}">${letter}</span>
+          <span class="text-[15.5px] font-medium leading-snug flex-1">${q.options[letter]}</span>
+          ${indicator}
+        `;
+
+        if (!solved) {
+          btn.addEventListener("click", () => toggleOption(q, letter));
+        }
+
+        optionsContainer.appendChild(btn);
+      });
+    }
+
+    function toggleOption(q, letter) {
+      if (q.type === "pg") {
+        state.selection = [letter];
+      } else {
+        if (state.selection.includes(letter)) {
+          state.selection = state.selection.filter(l => l !== letter);
+        } else {
+          state.selection = [...state.selection, letter].sort();
+        }
+      }
+      renderOptions(q, false);
+      updateBottomBar(false, getProg(q.id));
+    }
+
+    function updateBottomBar(solved, prog) {
+      prevBtn.disabled = state.currentIndex === 0;
+      const isLast = state.currentIndex === state.activeIds.length - 1;
+      nextBtnLabel.textContent = isLast ? "Hasil" : "Next";
+
+      if (solved) {
+        checkBtn.disabled = false;
+        checkBtn.className = "flex-1 min-h-[48px] px-4 rounded-2xl bg-[#15803D] hover:bg-emerald-800 active:scale-[0.98] text-white font-extrabold text-sm shadow-md shadow-emerald-900/15 transition flex items-center justify-center gap-1.5";
+        checkBtn.innerHTML = isLast ? "Lihat Hasil &amp; Evaluasi 🏆" : "Lanjut →";
+      } else {
+        checkBtn.disabled = state.selection.length === 0;
+        checkBtn.className = "flex-1 min-h-[48px] px-4 rounded-2xl bg-[#B45309] hover:bg-amber-800 active:scale-[0.98] disabled:bg-stone-300 disabled:text-stone-500 disabled:shadow-none text-white font-extrabold text-sm shadow-md shadow-amber-900/15 transition flex items-center justify-center gap-1.5";
+        checkBtn.innerHTML = prog.attempts > 0 ? "Periksa Ulang" : "Periksa Jawaban";
+      }
+    }
+
+    // ==================== SMART AUTO-CORRECTION ENGINE (ZERO SPOILERS) ====================
+    function arraysMatch(a, b) {
+      if (a.length !== b.length) return false;
+      const sa = [...a].sort();
+      const sb = [...b].sort();
+      return sa.every((v, i) => v === sb[i]);
+    }
+
+    function handleCheckAction() {
+      const q = getCurrentQuestion();
+      if (!q) return;
+      const prog = getProg(q.id);
+      const solved = isSolved(prog.status);
+
+      if (solved) {
+        if (state.currentIndex < state.activeIds.length - 1) {
+          state.currentIndex++;
+          renderCurrentQuestion();
+        } else {
+          setView("eval");
+        }
+        return;
+      }
+
+      if (state.selection.length === 0) return;
+
+      const attempts = prog.attempts + 1;
+      const isCorrect = arraysMatch(state.selection, q.correct);
+
+      if (isCorrect) {
+        const status = attempts === 1 ? "first_try" : "corrected";
+        state.progress[q.id] = { status, attempts, selected: [...state.selection] };
+        saveState();
+
+        updateHeaderStats();
+        qAttemptBadge.textContent = `${attempts}x cek`;
+        renderOptions(q, true);
+        renderCorrectFeedback(q, state.progress[q.id]);
+        updateBottomBar(true, state.progress[q.id]);
+      } else {
+        state.progress[q.id] = { status: "wrong", attempts, selected: [...state.selection] };
+        saveState();
+
+        updateHeaderStats();
+        qAttemptBadge.textContent = `${attempts}x cek`;
+        renderAutoCorrectionFeedback(q, state.selection);
+        updateBottomBar(false, state.progress[q.id]);
+
+        feedbackCard.classList.remove("animate-shake");
+        void feedbackCard.offsetWidth;
+        feedbackCard.classList.add("animate-shake");
+      }
+
+      setTimeout(() => {
+        feedbackCard.scrollIntoView({ behavior: "smooth", block: "nearest" });
+      }, 60);
+    }
+
+    function renderCorrectFeedback(q, prog) {
+      feedbackCard.classList.remove("hidden", "border-red-300", "bg-orange-50/95");
+      feedbackCard.classList.add("border-emerald-300", "bg-emerald-50/95");
+
+      const title = prog.status === "first_try"
+        ? "Benar di percobaan pertama! 🎉"
+        : `Mantap! Berhasil diperbaiki di percobaan ke-${prog.attempts} 👏`;
+
+      feedbackCard.innerHTML = `
+        <div class="flex items-start gap-3">
+          <div class="w-9 h-9 rounded-xl bg-[#15803D] text-white flex items-center justify-center font-extrabold text-lg shrink-0">✓</div>
+          <div class="flex-1 min-w-0">
+            <div class="font-extrabold text-sm text-emerald-950">${title}</div>
+            <p class="text-xs text-emerald-900/90 mt-1 leading-relaxed">${q.successNote}</p>
+          </div>
+        </div>
+      `;
+    }
+
+    function renderAutoCorrectionFeedback(q, selected) {
+      feedbackCard.classList.remove("hidden", "border-emerald-300", "bg-emerald-50/95");
+      feedbackCard.classList.add("border-red-300", "bg-orange-50/95");
+
+      let errorHTML = "";
+
+      if (q.type === "pg") {
+        const chosen = selected[0];
+        const reason = (q.wrongReasons && q.wrongReasons[chosen])
+          ? q.wrongReasons[chosen]
+          : "Pilihan ini belum sesuai dengan aturan grammar atau konsep materi pastry.";
+        errorHTML = `<p class="text-xs text-red-950 leading-relaxed"><strong>Opsi ${chosen}:</strong> ${reason}</p>`;
+      } else {
+        // PGK: NEVER reveal correct option letters or text.
+        const wrongPicked = selected.filter(l => !q.correct.includes(l));
+        const missedCount = q.correct.filter(l => !selected.includes(l)).length;
+        const bullets = [];
+
+        if (wrongPicked.length === 0 && missedCount > 0) {
+          // User only checked correct ones, just missed some
+          bullets.push(`Pilihan yang kamu centang sudah tepat, tetapi masih ada <strong>${missedCount} pernyataan benar</strong> yang terlewat.`);
+        } else {
+          wrongPicked.forEach(letter => {
+            const reason = (q.wrongReasons && q.wrongReasons[letter])
+              ? q.wrongReasons[letter]
+              : "Pernyataan ini belum memenuhi syarat soal.";
+            bullets.push(`<strong>Opsi ${letter} salah:</strong> ${reason}`);
+          });
+
+          if (missedCount > 0) {
+            bullets.push(`Masih ada <strong>${missedCount} pernyataan benar</strong> yang belum kamu pilih.`);
+          } else if (wrongPicked.length > 0) {
+            bullets.push(`Semua pernyataan benar sebenarnya sudah masuk pilihanmu, tetapi masih ada <strong>${wrongPicked.length} opsi salah</strong> yang ikut tercentang.`);
+          }
+        }
+
+        errorHTML = `<ul class="list-disc pl-4 space-y-1.5 text-xs text-red-950 leading-relaxed">${bullets.map(b => `<li>${b}</li>`).join("")}</ul>`;
+      }
+
+      feedbackCard.innerHTML = `
+        <div class="flex items-center gap-2.5 mb-2.5">
+          <span class="w-8 h-8 rounded-xl bg-[#B91C1C] text-white flex items-center justify-center text-sm font-extrabold shrink-0">!</span>
+          <div>
+            <div class="font-extrabold text-sm text-[#B91C1C]">Auto-Koreksi • Belum Tepat</div>
+            <div class="text-[11px] font-medium text-amber-950/75">Perbaiki pilihanmu lalu tekan <strong>Periksa Ulang</strong>.</div>
+          </div>
+        </div>
+
+        <div class="bg-red-50 border border-red-200 rounded-2xl p-3 mb-2.5">
+          <div class="text-[11px] font-extrabold uppercase tracking-wide text-[#B91C1C] mb-1">❌ Letak Kesalahanmu:</div>
+          ${errorHTML}
+        </div>
+
+        <div class="bg-white border border-amber-200 rounded-2xl p-3">
+          <div class="text-[11px] font-extrabold uppercase tracking-wide text-[#B45309] mb-1">🧭 Seharusnya (Petunjuk Aturan):</div>
+          <p class="text-xs text-[#451A03]/90 leading-relaxed">${q.ruleHint}</p>
+        </div>
+      `;
+    }
+
+    // Bottom navigation listeners
+    checkBtn.addEventListener("click", handleCheckAction);
+
+    prevBtn.addEventListener("click", () => {
+      if (state.currentIndex > 0) {
+        state.currentIndex--;
+        renderCurrentQuestion();
+      }
+    });
+
+    nextBtn.addEventListener("click", () => {
+      if (state.currentIndex < state.activeIds.length - 1) {
+        state.currentIndex++;
+        renderCurrentQuestion();
+      } else {
+        setView("eval");
+      }
+    });
+
+    // ==================== BOTTOM SHEET: DAFTAR SOAL (1–50) ====================
+    function openDrawer() {
+      const currentQ = getCurrentQuestion();
+      const activeId = currentQ ? currentQ.id : -1;
+
+      let cCorrect = 0;
+      let cWrong = 0;
+      let cUnanswered = 0;
+
+      drawerGrid.innerHTML = "";
+
+      QUESTIONS.forEach(q => {
+        const p = getProg(q.id);
+        if (isSolved(p.status)) cCorrect++;
+        else if (p.status === "wrong") cWrong++;
+        else cUnanswered++;
+
+        const isActive = q.id === activeId && state.view === "quiz";
+        const btn = document.createElement("button");
+        btn.type = "button";
+
+        let cls = "h-12 rounded-2xl font-extrabold text-sm flex items-center justify-center transition active:scale-95 relative ";
+        if (isSolved(p.status)) {
+          cls += "bg-[#15803D] text-white shadow-xs";
+        } else if (p.status === "wrong") {
+          cls += "bg-[#B91C1C] text-white shadow-xs";
+        } else {
+          cls += "bg-stone-200/80 text-stone-700 hover:bg-stone-300/80";
+        }
+
+        if (isActive) {
+          cls += " ring-2 ring-offset-2 ring-[#D97706]";
+        }
+
+        btn.className = cls;
+        btn.innerHTML = `<span>${q.id}</span>${q.type === "pgk" ? '<span class="absolute top-1 right-1.5 w-1.5 h-1.5 rounded-full bg-indigo-400"></span>' : ''}`;
+        btn.addEventListener("click", () => {
+          closeDrawer();
+          if (!state.activeIds.includes(q.id)) {
+            applyFilter("all", q.id);
+          } else {
+            state.currentIndex = state.activeIds.indexOf(q.id);
+          }
+          setView("quiz");
+        });
+
+        drawerGrid.appendChild(btn);
+      });
+
+      drawerSummaryText.textContent = `Benar: ${cCorrect} • Salah: ${cWrong} • Belum: ${cUnanswered}`;
+      drawerModal.classList.remove("hidden");
+    }
+
+    function closeDrawer() {
+      drawerModal.classList.add("hidden");
+    }
+
+    openDrawerBtn.addEventListener("click", openDrawer);
+    closeDrawerBtn.addEventListener("click", closeDrawer);
+    drawerModal.addEventListener("click", e => {
+      if (e.target === drawerModal) closeDrawer();
+    });
+    drawerEvalBtn.addEventListener("click", () => {
+      closeDrawer();
+      setView("eval");
+    });
+
+    // ==================== EVALUATION VIEW ====================
+    function renderEvaluation() {
+      updateHeaderStats();
+
+      let firstTry = 0;
+      let corrected = 0;
+      let wrongCount = 0;
+      let unanswered = 0;
+
+      QUESTIONS.forEach(q => {
+        const st = getProg(q.id).status;
+        if (st === "first_try") firstTry++;
+        else if (st === "corrected") corrected++;
+        else if (st === "wrong") wrongCount++;
+        else unanswered++;
+      });
+
+      const totalSolved = firstTry + corrected;
+      const pct = Math.round((totalSolved / QUESTIONS.length) * 100);
+
+      evalTotalScore.textContent = `${totalSolved}/50`;
+      evalAccuracyPct.textContent = `${pct}%`;
+      statCorrect.textContent = totalSolved;
+      statWrong.textContent = wrongCount;
+      statUnanswered.textContent = unanswered;
+      evalFirstTryChip.textContent = `${firstTry} benar 1x coba`;
+
+      if (totalSolved === 50 && firstTry >= 40) {
+        evalEmoji.textContent = "🏆";
+        evalSub.textContent = "Luar biasa! Materi Pastry Book 2 (Ch. 6–10) sudah sangat kamu kuasai.";
+      } else if (totalSolved === 50) {
+        evalEmoji.textContent = "🎉";
+        evalSub.textContent = "Hebat! Semua 50 soal sudah berhasil kamu taklukkan.";
+      } else {
+        evalEmoji.textContent = "🧁";
+        evalSub.textContent = "Terus berlatih dengan Auto-Koreksi sampai 50/50 benar!";
+      }
+
+      // PG vs PGK stats
+      const pgQs = QUESTIONS.filter(q => q.type === "pg");
+      const pgkQs = QUESTIONS.filter(q => q.type === "pgk");
+      const pgSolved = pgQs.filter(q => isSolved(getProg(q.id).status)).length;
+      const pgkSolved = pgkQs.filter(q => isSolved(getProg(q.id).status)).length;
+
+      evalPgScore.textContent = `${pgSolved} / ${pgQs.length}`;
+      evalPgPct.textContent = `${Math.round((pgSolved / pgQs.length) * 100)}% benar`;
+      evalPgkScore.textContent = `${pgkSolved} / ${pgkQs.length}`;
+      evalPgkPct.textContent = `${Math.round((pgkSolved / pgkQs.length) * 100)}% benar`;
+
+      // Breakdown per Chapter (Ch. 6–10)
+      evalChapterList.innerHTML = "";
+      [6, 7, 8, 9, 10].forEach(ch => {
+        const chQs = QUESTIONS.filter(q => q.chapter === ch);
+        const chFirst = chQs.filter(q => getProg(q.id).status === "first_try").length;
+        const chCorr = chQs.filter(q => getProg(q.id).status === "corrected").length;
+        const chSolved = chFirst + chCorr;
+
+        const row = document.createElement("div");
+        row.innerHTML = `
+          <div class="flex items-center justify-between text-xs mb-1.5 gap-2">
+            <span class="font-bold text-[#451A03] truncate">Ch. ${ch}: ${CHAPTER_META[ch].title}</span>
+            <span class="font-extrabold text-[#B45309] shrink-0">${chSolved}/${chQs.length} <span class="text-stone-400 font-semibold">(${Math.round((chSolved / chQs.length) * 100)}%)</span></span>
+          </div>
+          <div class="w-full h-2.5 bg-amber-100 rounded-full overflow-hidden flex">
+            <div class="h-full bg-[#15803D] transition-all" style="width: ${(chFirst / chQs.length) * 100}%"></div>
+            <div class="h-full bg-[#D97706] transition-all" style="width: ${(chCorr / chQs.length) * 100}%"></div>
+          </div>
+        `;
+        evalChapterList.appendChild(row);
+      });
+
+      if (wrongCount > 0) {
+        retryWrongBtn.classList.remove("hidden");
+        retryWrongBtn.textContent = `🔁 Latih ${wrongCount} Soal yang Masih Salah`;
+      } else {
+        retryWrongBtn.classList.add("hidden");
+      }
+    }
+
+    openEvalBtn.addEventListener("click", () => {
+      setView(state.view === "eval" ? "quiz" : "eval");
+    });
+
+    backToQuizBtn.addEventListener("click", () => setView("quiz"));
+
+    retryWrongBtn.addEventListener("click", () => {
+      applyFilter("wrong", null);
+      setView("quiz");
+    });
+
+    // ==================== RESET MODAL ====================
+    function openResetModal() {
+      resetModal.classList.remove("hidden");
+    }
+    function closeResetModal() {
+      resetModal.classList.add("hidden");
+    }
+
+    headerResetBtn.addEventListener("click", openResetModal);
+    evalResetAllBtn.addEventListener("click", openResetModal);
+    cancelResetBtn.addEventListener("click", closeResetModal);
+    resetModal.addEventListener("click", e => {
+      if (e.target === resetModal) closeResetModal();
+    });
+
+    confirmResetBtn.addEventListener("click", () => {
+      state.progress = {};
+      state.lastQuestionId = 1;
+      state.filter = "all";
+      localStorage.removeItem(STORAGE_KEY);
+      closeResetModal();
+      applyFilter("all", 1);
+      setView("quiz");
+    });
+
+    // ==================== INITIALIZE APP ====================
+    loadState();
+    applyFilter(state.filter, state.lastQuestionId);
+  </script>
+</body>
+</html>
